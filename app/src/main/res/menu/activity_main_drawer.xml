@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_public_black_24dp"
+            android:title="Carte" />
+        <item
+            android:id="@+id/nav_team"
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="Equipe" />
+        <item
+            android:id="@+id/nav_pokedex"
+            android:icon="@drawable/ic_smartphone_black_24dp"
+            android:title="Pokédex" />
+        <item
+            android:id="@+id/nav_inventory"
+            android:icon="@drawable/ic_shopping_basket_black_24dp"
+            android:title="Inventaire" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Paramètres" />
+    </group>
+
+
+
+</menu>
