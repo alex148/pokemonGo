@@ -31,10 +31,12 @@ public class UserDao extends Dao implements Crud<User> {
     @Override
     public long insert(User object) {
         try {
-            ContentValues value = new ContentValues();
-            value.put(LOGIN, object.getLogin());
-            value.put(PASSWORD, object.getPassword());
-           return database.insert(TABLE_NAME, null, value);
+            if(!userExist(object.getLogin())) {
+                ContentValues value = new ContentValues();
+                value.put(LOGIN, object.getLogin());
+                value.put(PASSWORD, object.getPassword());
+                return database.insert(TABLE_NAME, null, value);
+            }
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -43,8 +45,8 @@ public class UserDao extends Dao implements Crud<User> {
 
     @Override
     public void delete(long id) {
-        try{
-            database.delete(TABLE_NAME,KEY + " = ?", new String[] {String.valueOf(id)});
+        try {
+            database.delete(TABLE_NAME, KEY + " = ?", new String[]{String.valueOf(id)});
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -56,7 +58,7 @@ public class UserDao extends Dao implements Crud<User> {
             ContentValues value = new ContentValues();
             value.put(LOGIN, object.getLogin());
             value.put(PASSWORD, object.getPassword());
-            database.update(TABLE_NAME,value,KEY + " = ?", new String[] {String.valueOf(object.getId())});
+            database.update(TABLE_NAME, value, KEY + " = ?", new String[]{String.valueOf(object.getId())});
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -76,4 +78,23 @@ public class UserDao extends Dao implements Crud<User> {
         }
         return null;
     }
+
+    public User getUser(String login, String password){
+        User u;
+        Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ LOGIN +" = ? AND "+PASSWORD+" = ?",new String[]{login,password});
+        if(cursor.getCount() != 1)
+            return null;
+        cursor.moveToFirst();
+        u = new User(cursor.getLong(0),cursor.getString(1),cursor.getString(2));
+        return u;
+    }
+
+    public boolean userExist(String login){
+        Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ LOGIN +" = ?",new String[]{login});
+        if(cursor.getCount() > 0)
+            return true;
+        return false;
+    }
+
+
 }

@@ -31,6 +31,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.alex.pokemongo.R;
+import com.pokemongo.dao.UserDao;
+import com.pokemongo.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +44,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+    private UserDao userDao;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -95,6 +98,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        userDao = new UserDao(this);
+        userDao.open();
+        User u = new User(0,"test","test");
+        userDao.insert(u);
     }
 
     private void populateAutoComplete() {
@@ -169,16 +177,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -200,7 +198,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 
     /**
@@ -318,17 +316,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
+            String login = mEmail;
+            String password =mPassword;
+            User u = userDao.getUser(login, password);
+            if(u != null){
+                return true;
             }
-
             // TODO: register the new account here.
-            return true;
+            return false;
         }
+
 
         @Override
         protected void onPostExecute(final Boolean success) {
