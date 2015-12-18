@@ -1,4 +1,4 @@
-package com.example.alex.pokemongo;
+package com.pokemongo.activites;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

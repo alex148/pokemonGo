@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.pokemongo.activites.LoginActivity"
             android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,48 +23,48 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.pokemongo.activites.MainActivity"
             android:label="Carte"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode= "singleInstance"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.pokemongo.activites.SettingsActivity"
             android:label="Paramètres"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.pokemongo.activites.MainActivity"
             android:launchMode= "singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alex.pokemongo.MainActivity" />
+                android:value="com.pokemongo.activites.MainActivity" />
         </activity>
         <activity
-            android:name=".PokedexActivity"
+            android:name="com.pokemongo.activites.PokedexActivity"
             android:label="Pokédex"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.pokemongo.activites.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode= "singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alex.pokemongo.MainActivity" />
+                android:value="com.pokemongo.activites.MainActivity" />
         </activity>
         <activity
-            android:name=".InventoryActivity"
+            android:name="com.pokemongo.activites.InventoryActivity"
             android:label="Inventaire"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.pokemongo.activites.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode= "singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alex.pokemongo.MainActivity" />
+                android:value="com.pokemongo.activites.MainActivity" />
         </activity>
         <activity
-            android:name=".TeamActivity"
+            android:name="com.pokemongo.activites.TeamActivity"
             android:label="Equipe"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.pokemongo.activites.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:launchMode= "singleInstance">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.alex.pokemongo.MainActivity" />
+                android:value="com.pokemongo.activites.MainActivity" />
         </activity>
     </application>
 
