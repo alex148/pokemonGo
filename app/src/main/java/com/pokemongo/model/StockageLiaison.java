@@ -6,15 +6,15 @@ package com.pokemongo.model;
 public class StockageLiaison {
     private User user;
     private Pokemon pokemon;
-    private TypeStockage type;
+    private String type;
 
     public StockageLiaison(){
         this.user = new User();
         this.pokemon = new Pokemon();
-        this.type = new TypeStockage();
+        this.type = "";
     }
 
-    public StockageLiaison(User user, Pokemon pokemon, TypeStockage type) {
+    public StockageLiaison(User user, Pokemon pokemon, String type) {
         this.user = user;
         this.pokemon = pokemon;
         this.type = type;
@@ -36,11 +36,11 @@ public class StockageLiaison {
         this.pokemon = pokemon;
     }
 
-    public TypeStockage getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(TypeStockage type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

@@ -20,6 +20,14 @@ public class User {
         this.id = id;
         this.login = login;
         this.password = password;
+        this.pokemons = new Stockage();
+    }
+
+    public User(long id, String login, String password, Stockage pokemons){
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.pokemons = pokemons;
     }
 
     public long getId() {
@@ -44,5 +52,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Stockage getPokemons() {
+        return pokemons;
+    }
+
+    public void setPokemons(Stockage pokemons) {
+        this.pokemons = pokemons;
     }
 }

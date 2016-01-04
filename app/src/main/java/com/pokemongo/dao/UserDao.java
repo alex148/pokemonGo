@@ -6,6 +6,8 @@ import android.database.Cursor;
 
 import com.pokemongo.model.User;
 
+import java.util.List;
+
 /**
  * Created by Alex on 18/12/2015.
  */
@@ -64,7 +66,6 @@ public class UserDao extends Dao implements Crud<User> {
         }
     }
 
-    @Override
     public User get(User user) {
         try{
             Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" where "+KEY+" = ?", new String[]{String.valueOf(user.getId())});
@@ -96,5 +97,9 @@ public class UserDao extends Dao implements Crud<User> {
         return false;
     }
 
+    @Override
+    public List<User> getAll() {
+        return null;
+    }
 
 }
