@@ -82,4 +82,28 @@ public class Pokemon {
     public void setNiveau(int niveau) {
         this.niveau = niveau;
     }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public List<Attaque> getAttaques() {
+        return attaques;
+    }
+
+    public void setAttaques(List<Attaque> attaques) {
+        this.attaques = attaques;
+    }
 }
