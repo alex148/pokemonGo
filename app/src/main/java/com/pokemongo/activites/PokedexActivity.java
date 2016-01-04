@@ -1,5 +1,6 @@
 package com.pokemongo.activites;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,16 +10,62 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.example.alex.pokemongo.R;
+import com.pokemongo.controllers.PokedexAdapter;
+import com.pokemongo.model.Pokemon;
+import com.pokemongo.model.Race;
+import com.pokemongo.model.Type;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PokedexActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ListView listViewPokedex;
+    private Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokedex);
+        ctx=this;
+
+        /*   Liste provisoire de test   */
+
+        Race bulbizarre = new Race();
+        bulbizarre.setNomRace("Bulbizarre");
+        bulbizarre.setDescription("Plante");
+        bulbizarre.setDecouvert(true);
+
+        Race salameche = new Race();
+        salameche.setNomRace("Salameche");
+        salameche.setDescription("Feu");
+        salameche.setDecouvert(true);
+
+        Race carapuce = new Race();
+        carapuce.setNomRace("Carapuce");
+        carapuce.setDescription("Eau");
+        carapuce.setDecouvert(true);
+
+        Race abo = new Race();
+        abo.setNomRace("Abo");
+        abo.setDescription("Poison");
+        abo.setDecouvert(false);
+
+        List<Race> listPokemons= new ArrayList<Race>();
+        listPokemons.add(bulbizarre);
+        listPokemons.add(carapuce);
+        listPokemons.add(salameche);
+        listPokemons.add(abo);
+
+        /* fin liste provisoire  */
+        listViewPokedex = ( ListView ) findViewById( R.id.pokedex_list);
+        listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, listPokemons));
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

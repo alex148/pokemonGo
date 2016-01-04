@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/imagePokemon"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/nomPokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nom du pokémon  TODO" />
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:text="Nom du pokémon  TODO"
+        />
+
     <TextView
-        android:id="@+id/tvHome"
+        android:id="@+id/typePokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
         android:text="Autres infos  TODO" />
+
+
 </LinearLayout>

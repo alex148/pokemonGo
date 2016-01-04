@@ -10,6 +10,7 @@ public class Race {
     private String description;
     private int poids;
     private int taille;
+    private boolean decouvert;
 
     public long getId() {
         return id;
@@ -49,5 +50,13 @@ public class Race {
 
     public void setTaille(int taille) {
         this.taille = taille;
+    }
+
+    public boolean isDecouvert() {
+        return decouvert;
+    }
+
+    public void setDecouvert(boolean decouvert) {
+        this.decouvert = decouvert;
     }
 }
