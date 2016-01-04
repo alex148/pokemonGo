@@ -16,7 +16,7 @@ public class UserDao extends Dao implements Crud<User> {
     }
 
     public static final String TABLE_NAME = "user";
-    public static final String KEY = "id";
+    public static final String KEY = "ID_User";
     public static final String LOGIN = "login";
     public static final String PASSWORD ="password";
 
@@ -44,9 +44,9 @@ public class UserDao extends Dao implements Crud<User> {
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(User user) {
         try {
-            database.delete(TABLE_NAME, KEY + " = ?", new String[]{String.valueOf(id)});
+            database.delete(TABLE_NAME, KEY + " = ?", new String[]{String.valueOf(user.getId())});
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -65,9 +65,9 @@ public class UserDao extends Dao implements Crud<User> {
     }
 
     @Override
-    public User get(long id) {
+    public User get(User user) {
         try{
-            Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" where "+KEY+" = ?", new String[]{String.valueOf(id)});
+            Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" where "+KEY+" = ?", new String[]{String.valueOf(user.getId())});
             if(cursor.getCount() != 1)
                 return null;
             cursor.moveToFirst();
