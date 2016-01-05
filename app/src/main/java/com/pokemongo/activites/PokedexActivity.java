@@ -62,6 +62,7 @@ public class PokedexActivity extends AppCompatActivity
         listPokemons.add(abo);
 
         /* fin liste provisoire  */
+
         listViewPokedex = ( ListView ) findViewById( R.id.pokedex_list);
         listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, listPokemons));
 
