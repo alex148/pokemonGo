@@ -30,9 +30,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(InventaireDao.INSERT_INVENTAIRE_TEST_POTION);
         db.execSQL(InventaireDao.INSERT_INVENTAIRE_TEST_POKEBALL);
 
-        db.execSQL(StockageDao.TABLE_CREATE);
-        db.execSQL(StockageDao.INSERT_STOCKAGE_TEST);
-
         db.execSQL(RaceDao.TABLE_CREATE);
         db.execSQL(RaceDao.INSERT_RACE);
 
@@ -41,6 +38,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         db.execSQL(PokedexDao.TABLE_CREATE);
         db.execSQL(PokedexDao.INSERT_POKEDEX);
+
+        db.execSQL(StockageDao.TABLE_CREATE);
+        db.execSQL(StockageDao.INSERT_STOCKAGE_TEST);
     }
 
     @Override
