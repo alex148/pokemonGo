@@ -7,13 +7,12 @@ public enum Type {
     Eau,
     Feu,
     Plante,
-    Electrik,
+    Electrique,
     Sol,
     Poison,
     Vol,
     Combat,
     Psy,
-    Tenebre,
     Spectre,
     Dragon,
     Fee,
@@ -21,5 +20,6 @@ public enum Type {
     Glace,
     Normal,
     Acier,
-    Roche
+    Roche,
+    None
 }

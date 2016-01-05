@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.alex.pokemongo.R;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
+import com.pokemongo.model.Type;
 
 import java.util.List;
 
@@ -47,8 +48,13 @@ public class PokedexAdapter extends ArrayAdapter<Race> {
             TextView pokeName = (TextView) convertView.findViewById(R.id.nomPokemon);
             pokeName.setText(pokemon.getNomRace());
 
-            TextView pokeType = (TextView) convertView.findViewById(R.id.typePokemon);
-            pokeType.setText(pokemon.getDescription());
+            TextView pokeType1 = (TextView) convertView.findViewById(R.id.type1Pokemon);
+            pokeType1.setText(pokemon.getType1().toString());
+
+            if (pokemon.getType2()!= Type.None) {
+                TextView pokeType2 = (TextView) convertView.findViewById(R.id.type2Pokemon);
+                pokeType2.setText(pokemon.getType2().toString());
+            }
 
             ImageView pokeImage = (ImageView) convertView.findViewById(R.id.imagePokemon);
             String uri = "drawable/" + pokemon.getNomRace().toLowerCase();
@@ -60,7 +66,7 @@ public class PokedexAdapter extends ArrayAdapter<Race> {
             TextView pokeName = (TextView) convertView.findViewById(R.id.nomPokemon);
             pokeName.setText("???");
 
-            TextView pokeType = (TextView) convertView.findViewById(R.id.typePokemon);
+            TextView pokeType = (TextView) convertView.findViewById(R.id.type1Pokemon);
             pokeType.setText("????");
         }
 

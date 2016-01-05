@@ -10,7 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.alex.pokemongo.R;
 import com.pokemongo.controllers.PokedexAdapter;
@@ -37,23 +40,43 @@ public class PokedexActivity extends AppCompatActivity
 
         Race bulbizarre = new Race();
         bulbizarre.setNomRace("Bulbizarre");
-        bulbizarre.setDescription("Plante");
+        bulbizarre.setType1(Type.Plante);
+        bulbizarre.setType2(Type.None);
         bulbizarre.setDecouvert(true);
+        bulbizarre.setPoids(12.3);
+        bulbizarre.setTaille(1.5);
+        bulbizarre.setId(1);
+        bulbizarre.setDescription("bulbi");
 
         Race salameche = new Race();
         salameche.setNomRace("Salameche");
-        salameche.setDescription("Feu");
+        salameche.setType1(Type.Feu);
+        salameche.setType2(Type.None);
         salameche.setDecouvert(true);
+        salameche.setPoids(11.3);
+        salameche.setTaille(1.6);
+        salameche.setId(2);
+        salameche.setDescription("sala");
 
         Race carapuce = new Race();
         carapuce.setNomRace("Carapuce");
-        carapuce.setDescription("Eau");
+        carapuce.setType1(Type.Eau);
+        carapuce.setType2(Type.None);
         carapuce.setDecouvert(true);
+        carapuce.setPoids(10.3);
+        carapuce.setTaille(1.7);
+        carapuce.setId(3);
+        carapuce.setDescription("cara");
 
         Race abo = new Race();
         abo.setNomRace("Abo");
-        abo.setDescription("Poison");
+        abo.setType1(Type.Poison);
+        abo.setType2(Type.None);
         abo.setDecouvert(false);
+        abo.setPoids(12.3);
+        abo.setTaille(1.5);
+        abo.setId(4);
+        abo.setDescription("abo");
 
         List<Race> listPokemons= new ArrayList<Race>();
         listPokemons.add(bulbizarre);
@@ -65,7 +88,21 @@ public class PokedexActivity extends AppCompatActivity
 
         listViewPokedex = ( ListView ) findViewById( R.id.pokedex_list);
         listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, listPokemons));
+        listViewPokedex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               Race pokemon = (Race) listViewPokedex.getAdapter().getItem( position );
+               if (pokemon.isDecouvert()) {
+                   Intent intent = new Intent(PokedexActivity.this, PokedexDetailsActivity.class);
+                   intent.putExtra("pokemon", pokemon);
+                   startActivity(intent);
+               }
+               else{
+                   Toast.makeText(getApplicationContext(), "Pokémon inconnu", Toast.LENGTH_SHORT).show();
+               }
+           }
+       });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -16,16 +16,23 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="15dp"
-        android:text="Nom du pokémon  TODO"
+        android:text="Nom du pokémon"
         />
 
     <TextView
-        android:id="@+id/typePokemon"
+        android:id="@+id/type1Pokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="15dp"
-        android:text="Autres infos  TODO" />
+        android:text="Autres infos" />
+    <TextView
+        android:id="@+id/type2Pokemon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        />
 
 
 </LinearLayout>
