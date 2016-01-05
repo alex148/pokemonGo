@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.example.alex.pokemongo.R;
 import com.pokemongo.dao.UserDao;
+import com.pokemongo.model.Inventaire;
 import com.pokemongo.model.User;
 
 import java.util.ArrayList;
@@ -75,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -98,11 +98,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        try{
+            userDao = new UserDao(this);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
-        userDao = new UserDao(this);
-        userDao.open();
-        User u = new User(0,"test","test");
-        userDao.insert(u);
     }
 
     private void populateAutoComplete() {
@@ -318,7 +319,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             String login = mEmail;
             String password =mPassword;
+
             User u = userDao.getUser(login, password);
+
             if(u != null){
                 return true;
             }

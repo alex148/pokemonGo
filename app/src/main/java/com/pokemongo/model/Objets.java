@@ -3,17 +3,17 @@ package com.pokemongo.model;
 /**
  * Created by Alex on 05/01/2016.
  */
-public class Item {
+public class Objets {
 
     private Objet objet;
     private int quantite;
 
-    public Item(Objet objet, int quantite) {
+    public Objets(Objet objet, int quantite) {
         this.objet = objet;
         this.quantite = quantite;
     }
 
-    public Item() {
+    public Objets() {
         this.objet = new Objet();
         this.quantite = 0;
     }
@@ -24,5 +24,13 @@ public class Item {
 
     public int getQuantite() {
         return quantite;
+    }
+
+    public void setObjet(Objet objet) {
+        this.objet = objet;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
 }

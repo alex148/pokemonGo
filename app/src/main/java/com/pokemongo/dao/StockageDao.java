@@ -1,6 +1,7 @@
 package com.pokemongo.dao;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 
 import com.pokemongo.model.Pokemon;
@@ -27,9 +28,17 @@ public class StockageDao extends Dao implements Crud<StockageLiaison> {
             "( "+USER_KEY+" INTEGER NOT NULL , "+
             POKEMON_KEY+" INTEGER NOT NULL, "+
             TYPE_STOCKAGE+" VARCHAR(50) NOT NULL," +
-            "PRIMARY_KEY("+USER_KEY+","+POKEMON_KEY+"));";   //todo add foreign key
+            "FOREIGN KEY("+USER_KEY+") REFERENCES "+UserDao.TABLE_NAME+"("+UserDao.KEY+"),"+    //todo add foreign key pokemon
+            "PRIMARY KEY("+USER_KEY+","+POKEMON_KEY+"));";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
+
+    public static final String INSERT_STOCKAGE_TEST = "INSERT INTO "+TABLE_NAME+" VALUES(1,1,'"+TypeStockage.EQUIPE.toString()+"')";
+
+    public StockageDao(Context context){
+        super(context);
+        this.open();
+    }
 
     @Override
     public long insert(StockageLiaison object) {
