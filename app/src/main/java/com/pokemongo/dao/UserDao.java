@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.pokemongo.model.Inventaire;
+import com.pokemongo.model.Stockage;
+import com.pokemongo.model.TypeStockage;
 import com.pokemongo.model.User;
 
 import java.util.List;
@@ -97,6 +99,16 @@ public class UserDao extends Dao implements Crud<User> {
             cursor.moveToFirst();
             u = new User(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
             u.setInventaire(this.inventaireDao.getUserInventaire(u.getId()));
+
+            Stockage pc = new Stockage();
+            pc.setPokemons(this.stockageDao.getPokemonsFromStockage(u, TypeStockage.PC.toString()));
+            pc.setType(TypeStockage.PC);
+            u.setPc(pc);
+
+            Stockage equipe = new Stockage();
+            equipe.setPokemons(this.stockageDao.getPokemonsFromStockage(u, TypeStockage.EQUIPE.toString()));
+            equipe.setType(TypeStockage.EQUIPE);
+
             return u;
         }catch(Exception e){
             System.out.println(e.getMessage());
