@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.pokemongo.model.Inventaire;
+import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Stockage;
 
 /**
@@ -32,6 +33,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(StockageDao.TABLE_CREATE);
         db.execSQL(StockageDao.INSERT_STOCKAGE_TEST);
 
+        db.execSQL(RaceDao.TABLE_CREATE);
+        db.execSQL(RaceDao.INSERT_RACE);
+
+        db.execSQL(PokemonDao.TABLE_CREATE);
+        db.execSQL(PokemonDao.INSERT_POKEMON);
+
+        db.execSQL(PokedexDao.TABLE_CREATE);
+        db.execSQL(PokedexDao.INSERT_POKEDEX);
     }
 
     @Override

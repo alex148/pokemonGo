@@ -22,6 +22,7 @@ public class PokedexDao extends Dao implements Crud<PokedexLiaison> {
     private RaceDao raceDao;
     public PokedexDao(Context context){
         super(context);
+        this.open();
         raceDao=new RaceDao(context);
     }
 
@@ -35,14 +36,15 @@ public class PokedexDao extends Dao implements Crud<PokedexLiaison> {
             +USER_KEY+" INTEGER NOT NULL , "
             +RACE_KEY+" INTEGER NOT NULL , "
             +DECOUVERT +" INTEGER NOT NULL,"
-            +"PRIMARY_KEY("+USER_KEY+","+RACE_KEY+"),"
+            +"PRIMARY KEY("+USER_KEY+","+RACE_KEY+"),"
             +"FOREIGN KEY("+USER_KEY+") REFERENCES "+UserDao.TABLE_NAME+"("+UserDao.KEY+"),"
-            +"FOREIGN KEY("+RACE_KEY+") REFERENCES "+RaceDao.TABLE_NAME+"("+UserDao.KEY+")"
+            +"FOREIGN KEY("+RACE_KEY+") REFERENCES "+RaceDao.TABLE_NAME+"("+RaceDao.KEY+")"
             + ");";
 
 
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
+    public static final String INSERT_POKEDEX = "INSERT INTO "+TABLE_NAME+" VALUES (1,0,1);";
 
     @Override
     public long insert(PokedexLiaison object) {
@@ -121,7 +123,7 @@ public class PokedexDao extends Dao implements Crud<PokedexLiaison> {
         {
             for(Race r : ListRace){
                 if(p.getID_RacePokemon()==r.getId()){
-                    r.setDecouvert(true);
+                    r.setDecouvert(p.isDecouvert());
                 }
             }
         }

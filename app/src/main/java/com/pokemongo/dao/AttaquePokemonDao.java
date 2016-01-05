@@ -19,6 +19,7 @@ public class AttaquePokemonDao extends Dao implements Crud<AttaqueLiaison> {
     private AttaqueDao attaqueDao;
     public AttaquePokemonDao(Context context){
         super(context);
+        this.open();
         attaqueDao=new AttaqueDao(context);
     }
 

@@ -18,13 +18,13 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
     private RaceDao raceDao;
     public PokemonDao(Context context){
         super(context);
+        this.open();
         attaquePokemonDao=new AttaquePokemonDao(context);
         raceDao=new RaceDao(context);
     }
 
     public static final String TABLE_NAME = "pokemon";
     public static final String KEY = "ID_Pokemon";
-    public static final String RACE_KEY = "ID_Pokemon";
     public static final String PV = "pv";
     public static final String ATTAQUE = "attaque";
     public static final String ATTAQUESPE = "attaqueSpe";
@@ -33,6 +33,7 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
     public static final String VITESSE= "vitesse";
     public static final String NIVEAU= "niveau";
     public static final String EXPERIENCE= "experience";
+    public static final String RACE_KEY = "ID_Pokemon";
 
     public static final String TABLE_CREATE = "CREATE TABLE "+TABLE_NAME+" " +
             "( "
@@ -45,13 +46,13 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
             +VITESSE+" INTEGER NOT NULL,"
             +NIVEAU+" INTEGER NOT NULL,"
             +EXPERIENCE+" INTEGER NOT NULL,"
-            +RACE_KEY+"INTEGER NOT NULL"
+            +RACE_KEY+"INTEGER NOT NULL,"
             +"FOREIGN KEY("+RACE_KEY+") REFERENCES "+ RaceDao.TABLE_NAME+"("+RaceDao.KEY+")"
             + ");";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (NULL,50,20,20,20,20,50,1,0,NULL);";
+    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (NULL,50,20,20,20,20,50,1,0,0);";
 
 
     @Override

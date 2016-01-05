@@ -17,6 +17,7 @@ public class RaceDao extends Dao implements Crud<Race> {
 
     public RaceDao(Context context){
         super(context);
+        this.open();
     }
 
     public static final String TABLE_NAME = "race";
@@ -36,12 +37,12 @@ public class RaceDao extends Dao implements Crud<Race> {
             +POIDS+" INTEGER NOT NULL,"
             +TAILLE+" INTEGER NOT NULL,"
             +TYPE1+" STRING NOT NULL,"
-            +TYPE2+" STRING "
+            +TYPE2+" STRING NOT NULL "
             + ");";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_RACE = "INSERT INTO "+TABLE_NAME+" VALUES (NULL,'Pikachu','Une souris qui fait des éclairs',14,90,Electrik,NULL);";
+    public static final String INSERT_RACE = "INSERT INTO "+TABLE_NAME+" VALUES (0,'Pikachu','Une souris qui fait des éclairs',14,90,'Electrik','Eau');";
 
     @Override
     public long insert(Race object) {

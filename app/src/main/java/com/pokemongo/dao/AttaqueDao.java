@@ -19,6 +19,7 @@ public class AttaqueDao extends Dao implements Crud<Attaque> {
 
     public AttaqueDao(Context context){
         super(context);
+        this.open();
     }
 
     public static final String TABLE_NAME = "attaque";
