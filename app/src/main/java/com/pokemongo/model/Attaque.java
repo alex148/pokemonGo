@@ -7,11 +7,24 @@ public class Attaque {
 
     private long id;
     private String nom;
-    private String type;
-    private String categorie;
     private int degats;
     private int precision;
     private String description;
+    private CategorieAttaque categorie;
+    private Type type;
+
+    public Attaque(long id, String nom, int degats, int precision, String description, CategorieAttaque categorie, Type type) {
+        this.id = id;
+        this.nom = nom;
+        this.degats = degats;
+        this.precision = precision;
+        this.description = description;
+        this.categorie = categorie;
+        this.type = type;
+    }
+    public Attaque(){
+
+    }
 
     public long getId() {
         return id;
@@ -29,19 +42,19 @@ public class Attaque {
         this.nom = nom;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    public String getCategorie() {
+    public CategorieAttaque getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(String categorie) {
+    public void setCategorie(CategorieAttaque categorie) {
         this.categorie = categorie;
     }
 

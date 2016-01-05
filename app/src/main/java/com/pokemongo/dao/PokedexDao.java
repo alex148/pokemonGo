@@ -35,7 +35,9 @@ public class PokedexDao extends Dao implements Crud<PokedexLiaison> {
             +USER_KEY+" INTEGER NOT NULL , "
             +RACE_KEY+" INTEGER NOT NULL , "
             +DECOUVERT +" INTEGER NOT NULL,"
-            +"PRIMARY_KEY("+USER_KEY+","+RACE_KEY+")"
+            +"PRIMARY_KEY("+USER_KEY+","+RACE_KEY+"),"
+            +"FOREIGN KEY("+USER_KEY+") REFERENCES "+UserDao.TABLE_NAME+"("+UserDao.KEY+"),"
+            +"FOREIGN KEY("+RACE_KEY+") REFERENCES "+RaceDao.TABLE_NAME+"("+UserDao.KEY+")"
             + ");";
 
 
@@ -105,7 +107,6 @@ public class PokedexDao extends Dao implements Crud<PokedexLiaison> {
                 PokedexLiaison p = new PokedexLiaison(cursor.getLong(0),cursor.getLong(1),cursor.getInt(2)>0);
                 ListRace.add(p);
             }while (cursor.moveToNext());
-            return ListRace;
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

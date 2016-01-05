@@ -15,9 +15,26 @@ public class Pokemon {
     private int defenseSpe;
     private int vitesse;
     private int niveau;
+    private int experience;
     private Race race;
-    private Type type;
     private List<Attaque> attaques;
+
+    public Pokemon(){
+
+    }
+    public Pokemon(long id, int pv, int attaque, int attaqueSpe, int defense, int defenseSpe, int vitesse, int niveau, int experience,
+                   Race race) {
+        this.id = id;
+        this.pv = pv;
+        this.attaque = attaque;
+        this.attaqueSpe = attaqueSpe;
+        this.defense = defense;
+        this.defenseSpe = defenseSpe;
+        this.vitesse = vitesse;
+        this.niveau = niveau;
+        this.experience = experience;
+        this.race = race;
+    }
 
     public long getId() {
         return id;
@@ -83,6 +100,14 @@ public class Pokemon {
         this.niveau = niveau;
     }
 
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
     public Race getRace() {
         return race;
     }
@@ -91,13 +116,6 @@ public class Pokemon {
         this.race = race;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
 
     public List<Attaque> getAttaques() {
         return attaques;
