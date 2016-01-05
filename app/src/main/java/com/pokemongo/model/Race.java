@@ -14,7 +14,7 @@ public class Race {
     private Type type2;
     private boolean decouvert;
 
-    public Race(long id, String nomRace, String description, int poids, int taille,Type type1,Type type2) {
+    public Race(long id, String nomRace, String description, int poids, int taille,Type type1,Type type2,Boolean decouvert) {
         this.id = id;
         this.nomRace = nomRace;
         this.description = description;
@@ -22,8 +22,12 @@ public class Race {
         this.taille = taille;
         this.type1=type1;
         this.type2=type2;
+        this.decouvert=decouvert;
     }
 
+    public Race(){
+
+    }
     public long getId() {
         return id;
     }
