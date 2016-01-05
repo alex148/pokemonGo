@@ -10,8 +10,24 @@ public class Race {
     private String description;
     private int poids;
     private int taille;
+    private Type type1;
+    private Type type2;
     private boolean decouvert;
 
+    public Race(long id, String nomRace, String description, int poids, int taille,Type type1,Type type2,Boolean decouvert) {
+        this.id = id;
+        this.nomRace = nomRace;
+        this.description = description;
+        this.poids = poids;
+        this.taille = taille;
+        this.type1=type1;
+        this.type2=type2;
+        this.decouvert=decouvert;
+    }
+
+    public Race(){
+
+    }
     public long getId() {
         return id;
     }
@@ -58,5 +74,21 @@ public class Race {
 
     public void setDecouvert(boolean decouvert) {
         this.decouvert = decouvert;
+    }
+
+    public Type getType1() {
+        return type1;
+    }
+
+    public void setType1(Type type1) {
+        this.type1 = type1;
+    }
+
+    public Type getType2() {
+        return type2;
+    }
+
+    public void setType2(Type type2) {
+        this.type2 = type2;
     }
 }

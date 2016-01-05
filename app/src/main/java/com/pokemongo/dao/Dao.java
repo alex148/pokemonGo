@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class Dao{
 
-    protected  final static int VERSION = 7;
+    protected  final static int VERSION = 8;
 
     protected  final static String NOM ="pokemon.db";
 

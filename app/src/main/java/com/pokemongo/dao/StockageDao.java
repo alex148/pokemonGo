@@ -21,13 +21,13 @@ public class StockageDao extends Dao implements Crud<StockageLiaison> {
     public static final String TABLE_NAME = "stockage";
     public static final String USER_KEY = "ID_User";
     public static final String POKEMON_KEY = "ID_Pokemon";
-    public static final String TYPE_STOCKAGE ="ID_Type_Stockage";
+    public static final String TYPE_STOCKAGE ="type_Stockage";
 
     public static final String TABLE_CREATE = "CREATE TABLE "+TABLE_NAME+" " +
             "( "+USER_KEY+" INTEGER NOT NULL , "+
             POKEMON_KEY+" INTEGER NOT NULL, "+
             TYPE_STOCKAGE+" VARCHAR(50) NOT NULL," +
-            "PRIMARY_KEY("+USER_KEY+","+POKEMON_KEY+");";
+            "PRIMARY_KEY("+USER_KEY+","+POKEMON_KEY+"));";   //todo add foreign key
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
@@ -72,10 +72,19 @@ public class StockageDao extends Dao implements Crud<StockageLiaison> {
 
     @Override
     public List<StockageLiaison> getAll() {
-        return null;
+        List<StockageLiaison> list=new ArrayList<StockageLiaison>();
+        Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME, null);
+        while(cursor.moveToNext()){
+            StockageLiaison liaison = new StockageLiaison();
+            liaison.setPokemon(null);   //todo
+            liaison.setType(null);
+            liaison.setUser(null);
+            list.add(liaison);
+        }
+        return list;
     }
 
-    public List<Pokemon> getPokemons(User user, String type){
+    public List<Pokemon> getPokemonsFromStockage(User user, String type){
         List<Pokemon> pokemons = new ArrayList<Pokemon>();
         Cursor cursor;
         if(type == null){

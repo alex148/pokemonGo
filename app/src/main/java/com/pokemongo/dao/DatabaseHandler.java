@@ -16,8 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(UserDao.TABLE_CREATE);
-
-
+        db.execSQL(UserDao.INSERT_USERS);
     }
 
     @Override

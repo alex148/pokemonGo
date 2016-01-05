@@ -6,25 +6,28 @@ package com.pokemongo.model;
 public class Objet {
 
     private long id;
-    private int valeur;
+    private String nom;
     private String description;
-    private Categorie categorie;
-    private Effet effet;
+    private CategorieObjet categorie;
+    private Stat statConcernee;
+    private int valeur;
 
-    public Objet(long id, int valeur, String description, Categorie categorie, Effet effet) {
-        this.id = id;
+    public Objet(long id,int valeur, String nom, String description, CategorieObjet categorie, Stat statConcernee) {
         this.valeur = valeur;
+        this.id = id;
+        this.nom = nom;
         this.description = description;
         this.categorie = categorie;
-        this.effet = effet;
+        this.statConcernee = statConcernee;
     }
 
     public Objet(){
-        this.id = 0;
         this.valeur = 0;
+        this.id = 0;
+        this.nom = "";
         this.description = "";
-        this.categorie = new Categorie();
-        this.effet = new Effet();
+        this.categorie = null;
+        this.statConcernee = null;
     }
 
     public long getId() {
@@ -35,12 +38,12 @@ public class Objet {
         this.id = id;
     }
 
-    public int getValeur() {
-        return valeur;
+    public String getNom() {
+        return nom;
     }
 
-    public void setValeur(int valeur) {
-        this.valeur = valeur;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getDescription() {
@@ -51,19 +54,27 @@ public class Objet {
         this.description = description;
     }
 
-    public Categorie getCategorie() {
+    public CategorieObjet getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(Categorie categorie) {
+    public void setCategorie(CategorieObjet categorie) {
         this.categorie = categorie;
     }
 
-    public Effet getEffet() {
-        return effet;
+    public Stat getStatConcernee() {
+        return statConcernee;
     }
 
-    public void setEffet(Effet effet) {
-        this.effet = effet;
+    public void setStatConcernee(Stat statConcernee) {
+        this.statConcernee = statConcernee;
+    }
+
+    public int getValeur() {
+        return valeur;
+    }
+
+    public void setValeur(int valeur) {
+        this.valeur = valeur;
     }
 }

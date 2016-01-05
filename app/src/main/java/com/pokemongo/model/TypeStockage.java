@@ -5,5 +5,5 @@ package com.pokemongo.model;
  */
 public enum TypeStockage {
     PC,
-    EQUIPE;
+    EQUIPE
 }

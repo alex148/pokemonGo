@@ -29,6 +29,7 @@ public class UserDao extends Dao implements Crud<User> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
+    public static final String INSERT_USERS= "INSERT INTO "+TABLE_NAME+" VALUES (NULL,'test','test');";
 
     @Override
     public long insert(User object) {
