@@ -8,22 +8,25 @@ public class User {
     private long id;
     private String login;
     private String password;
-    private Stockage pokemons;
+    private Stockage equipe;
+    private Stockage pc;
     private Inventaire inventaire;
 
     public User(){
         this.id = -1;
         this.login = "";
         this.password = "";
-        this.pokemons = new Stockage();
+        this.equipe = new Stockage();
         this.inventaire = new Inventaire();
+        this.pc = new Stockage();
     }
 
     public User(long id, String login, String password){
         this.id = id;
         this.login = login;
         this.password = password;
-        this.pokemons = new Stockage();
+        this.equipe = new Stockage();
+        this.pc = new Stockage();
         this.inventaire = new Inventaire();
     }
 
@@ -31,15 +34,16 @@ public class User {
         this.id = id;
         this.login = login;
         this.password = password;
-        this.pokemons = pokemons;
+        this.equipe = pokemons;
     }
 
-    public User(long id, String login, String password, Stockage pokemons, Inventaire inventaire){
+    public User(long id, String login, String password, Stockage equipe,Stockage pc, Inventaire inventaire){
         this.id = id;
         this.login = login;
         this.password = password;
-        this.pokemons = pokemons;
+        this.equipe = equipe;
         this.inventaire = inventaire;
+        this.pc = pc;
     }
 
     public long getId() {
@@ -66,12 +70,12 @@ public class User {
         this.password = password;
     }
 
-    public Stockage getPokemons() {
-        return pokemons;
+    public Stockage getEquipe() {
+        return equipe;
     }
 
-    public void setPokemons(Stockage pokemons) {
-        this.pokemons = pokemons;
+    public void setEquipe(Stockage equipe) {
+        this.equipe = equipe;
     }
 
     public Inventaire getInventaire() {
@@ -80,5 +84,13 @@ public class User {
 
     public void setInventaire(Inventaire inventaire) {
         this.inventaire = inventaire;
+    }
+
+    public Stockage getPc() {
+        return pc;
+    }
+
+    public void setPc(Stockage pc) {
+        this.pc = pc;
     }
 }

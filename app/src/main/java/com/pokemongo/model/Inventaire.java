@@ -9,16 +9,16 @@ import java.util.List;
 public class Inventaire {
 
     private long id;
-    private List<Item> items;
+    private List<Objets> items;
 
-    public Inventaire(long id, List<Item> items) {
+    public Inventaire(long id, List<Objets> items) {
         this.id = id;
         this.items = items;
     }
 
     public Inventaire(){
         this.id = 0;
-        this.items = new ArrayList<Item>();
+        this.items = new ArrayList<Objets>();
     }
 
     public long getId() {
@@ -29,11 +29,11 @@ public class Inventaire {
         this.id = id;
     }
 
-    public List<Item> getItems() {
+    public List<Objets> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<Objets> items) {
         this.items = items;
     }
 }

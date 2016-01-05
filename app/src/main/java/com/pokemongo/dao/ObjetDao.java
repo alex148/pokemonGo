@@ -1,6 +1,7 @@
 package com.pokemongo.dao;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 
 import com.pokemongo.model.CategorieObjet;
@@ -28,17 +29,22 @@ public class ObjetDao extends Dao implements Crud<Objet> {
             VALEUR+" INTEGER NOT NULL, "+
             DESCRIPTION+" STRING NOT NULL," +
             NOM+" STRING NOT NULL, "+
-            CATEGORIE+" STRING NOT NULL, "+
+            CATEGORIE+" STRING, "+
             STAT_CONCERNEE+" STRING);";
 
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
 
-    public static final String INSERT_OBJECT_POTION = "INSERT INTO "+TABLE_NAME+" VALUES (1,'potion','une potion magique'," +
-            " '"+ CategorieObjet.CONSOMMABLE.toString()+"', '"+Stat.ATTAQUE.toString()+"', 10);";
-    public static final String INSERT_OBJECT_POKEBALL = "INSERT INTO "+TABLE_NAME+" VALUES (2,'pokeball','une pokeball de merde'," +
-            " '"+ CategorieObjet.BALL.toString()+"', NULL, 10);";
+    public static final String INSERT_OBJECT_POTION = "INSERT INTO "+TABLE_NAME+" VALUES (1,10,'une potion magique', 'potion'," +
+            " '"+ CategorieObjet.CONSOMMABLE.toString()+"', '"+Stat.ATTAQUE.toString()+"');";
+    public static final String INSERT_OBJECT_POKEBALL = "INSERT INTO "+TABLE_NAME+" VALUES (2,15, 'une pokeball de merde', 'pokeball'," +
+            " '"+ CategorieObjet.BALL.toString()+"', '"+Stat.DEFENSE.toString()+"');";
+
+    public ObjetDao(Context context){
+        super(context);
+        this.open();
+    }
 
     @Override
     public long insert(Objet object) {
@@ -60,7 +66,7 @@ public class ObjetDao extends Dao implements Crud<Objet> {
     @Override
     public void delete(Objet object) {
         try {
-            database.delete(TABLE_NAME, OBJET_KEY + " = ?" , new String[]{String.valueOf(object.getId())});
+            database.delete(TABLE_NAME, OBJET_KEY + " = ?", new String[]{String.valueOf(object.getId())});
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -96,5 +102,25 @@ public class ObjetDao extends Dao implements Crud<Objet> {
             list.add(objet);
         }
         return list;
+    }
+
+    public Objet getById(long id){
+        try{
+            Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" where "+OBJET_KEY+" = ?", new String[]{String.valueOf(id)});
+            if(cursor.getCount() != 1)
+                return null;
+            cursor.moveToFirst();
+            Objet objet = new Objet();
+            objet.setId(cursor.getLong(0));
+            objet.setValeur(cursor.getInt(1));
+            objet.setNom(cursor.getString(3));
+            objet.setDescription(cursor.getString(2));
+            objet.setCategorie(CategorieObjet.valueOf(cursor.getString(4)));
+            objet.setStatConcernee(Stat.valueOf(cursor.getString(5)));
+            return objet;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

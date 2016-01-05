@@ -4,6 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.pokemongo.model.Inventaire;
+import com.pokemongo.model.Stockage;
+import com.pokemongo.model.TypeStockage;
 import com.pokemongo.model.User;
 
 import java.util.List;
@@ -13,8 +16,13 @@ import java.util.List;
  */
 public class UserDao extends Dao implements Crud<User> {
 
+    private InventaireDao inventaireDao;
+    private StockageDao stockageDao;
     public UserDao(Context context){
         super(context);
+        this.open();
+        this.inventaireDao = new InventaireDao(context);
+        this.stockageDao = new StockageDao(context);
     }
 
     public static final String TABLE_NAME = "user";
@@ -27,9 +35,10 @@ public class UserDao extends Dao implements Crud<User> {
             LOGIN+" STRING NOT NULL, "+
             PASSWORD+" STRING NOT NULL);";
 
+
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_USERS= "INSERT INTO "+TABLE_NAME+" VALUES (NULL,'test','test');";
+    public static final String INSERT_USERS= "INSERT INTO "+TABLE_NAME+" VALUES (1,'test','test');";
 
     @Override
     public long insert(User object) {
@@ -73,7 +82,7 @@ public class UserDao extends Dao implements Crud<User> {
             if(cursor.getCount() != 1)
                 return null;
             cursor.moveToFirst();
-            User u = new User(cursor.getLong(0),cursor.getString(1),cursor.getString(2));
+            User u = new User(cursor.getLong(0),cursor.getString(1),cursor.getString(2));   //todo
             return u;
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -82,13 +91,29 @@ public class UserDao extends Dao implements Crud<User> {
     }
 
     public User getUser(String login, String password){
-        User u;
-        Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ LOGIN +" = ? AND "+PASSWORD+" = ?",new String[]{login,password});
-        if(cursor.getCount() != 1)
-            return null;
-        cursor.moveToFirst();
-        u = new User(cursor.getLong(0),cursor.getString(1),cursor.getString(2));
-        return u;
+        try {
+            User u;
+            Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + LOGIN + " = ? AND " + PASSWORD + " = ?", new String[]{login, password});
+            if (cursor.getCount() != 1)
+                return null;
+            cursor.moveToFirst();
+            u = new User(cursor.getLong(0), cursor.getString(1), cursor.getString(2));
+            u.setInventaire(this.inventaireDao.getUserInventaire(u.getId()));
+
+            Stockage pc = new Stockage();
+            pc.setPokemons(this.stockageDao.getPokemonsFromStockage(u, TypeStockage.PC.toString()));
+            pc.setType(TypeStockage.PC);
+            u.setPc(pc);
+
+            Stockage equipe = new Stockage();
+            equipe.setPokemons(this.stockageDao.getPokemonsFromStockage(u, TypeStockage.EQUIPE.toString()));
+            equipe.setType(TypeStockage.EQUIPE);
+
+            return u;
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public boolean userExist(String login){

@@ -102,4 +102,16 @@ public class RaceDao extends Dao implements Crud<Race> {
         }
         return ListRace;
     }
+    public Race getRaceByID(int id){
+        Race race=new Race();
+        try{
+            Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE ID_Race="+id,null);
+            cursor.moveToFirst();
+            race = new Race(cursor.getLong(0),cursor.getString(1),cursor.getString(2),
+                    cursor.getInt(3),cursor.getInt(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return race;
+    }
 }
