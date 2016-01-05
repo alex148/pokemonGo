@@ -35,8 +35,8 @@ public class RaceDao extends Dao implements Crud<Race> {
             +DESCRIPTION +" STRING NOT NULL,"
             +POIDS+" INTEGER NOT NULL,"
             +TAILLE+" INTEGER NOT NULL,"
-            +TYPE1+"STRING NOT NULL,"
-            +TYPE2+"STRING NULLABLE"
+            +TYPE1+" STRING NOT NULL,"
+            +TYPE2+" STRING "
             + ");";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
@@ -87,20 +87,19 @@ public class RaceDao extends Dao implements Crud<Race> {
 
     @Override
     public List<Race> getAll(){
+        List<Race> ListRace=new ArrayList<>();
         try{
             Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME,null);
-            List<Race> ListRace=new ArrayList<>();
-            int i=0;
             cursor.moveToFirst();
             do{
                 Race r = new Race(cursor.getLong(0),cursor.getString(1),cursor.getString(2),
-                        cursor.getInt(3),cursor.getInt(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)));
+                        cursor.getInt(3),cursor.getInt(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
                 ListRace.add(r);
             }while (cursor.moveToNext());
             return ListRace;
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return null;
+        return ListRace;
     }
 }
