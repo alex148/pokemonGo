@@ -28,7 +28,8 @@ public class StockageDao extends Dao implements Crud<StockageLiaison> {
             "( "+USER_KEY+" INTEGER NOT NULL , "+
             POKEMON_KEY+" INTEGER NOT NULL, "+
             TYPE_STOCKAGE+" VARCHAR(50) NOT NULL," +
-            "FOREIGN KEY("+USER_KEY+") REFERENCES "+UserDao.TABLE_NAME+"("+UserDao.KEY+"),"+    //todo add foreign key pokemon
+            "FOREIGN KEY("+USER_KEY+") REFERENCES "+UserDao.TABLE_NAME+"("+UserDao.KEY+"),"+
+            "FOREIGN KEY("+POKEMON_KEY+") REFERENCES "+PokemonDao.TABLE_NAME+"("+PokemonDao.KEY+"),"+
             "PRIMARY KEY("+USER_KEY+","+POKEMON_KEY+"));";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";

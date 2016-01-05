@@ -52,7 +52,7 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (NULL,50,20,20,20,20,50,1,0,0);";
+    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (1,50,20,20,20,20,50,1,0,0);";
 
 
     @Override
