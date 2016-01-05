@@ -42,7 +42,7 @@ public class RaceDao extends Dao implements Crud<Race> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_RACE = "INSERT INTO "+TABLE_NAME+" VALUES (0,'Pikachu','Une souris qui fait des éclairs',14,90,'Electrik','Eau');";
+    public static final String INSERT_RACE = "INSERT INTO "+TABLE_NAME+" VALUES (0,'Pikachu','Une souris qui fait des éclairs',14,90,'Electrique','Eau');";
 
     @Override
     public long insert(Race object) {

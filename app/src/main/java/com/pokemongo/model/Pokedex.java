@@ -12,4 +12,11 @@ public class Pokedex {
         this.ListRace=ListRace;
     }
 
+    public List<Race> getListRace() {
+        return ListRace;
+    }
+
+    public void setListRace(List<Race> listRace) {
+        ListRace = listRace;
+    }
 }

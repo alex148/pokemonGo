@@ -17,9 +17,12 @@ import android.widget.Toast;
 
 import com.example.alex.pokemongo.R;
 import com.pokemongo.controllers.PokedexAdapter;
+import com.pokemongo.dao.PokedexDao;
+import com.pokemongo.model.Pokedex;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
 import com.pokemongo.model.Type;
+import com.pokemongo.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +38,13 @@ public class PokedexActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokedex);
         ctx=this;
+        
+        PokedexDao pokedexDao = new PokedexDao(this);
+        Pokedex pokedex=pokedexDao.getPokedex(new User(1, "test", "test"));
 
         /*   Liste provisoire de test   */
 
-        Race bulbizarre = new Race();
+        /*Race bulbizarre = new Race();
         bulbizarre.setNomRace("Bulbizarre");
         bulbizarre.setType1(Type.Plante);
         bulbizarre.setType2(Type.None);
@@ -82,12 +88,12 @@ public class PokedexActivity extends AppCompatActivity
         listPokemons.add(bulbizarre);
         listPokemons.add(carapuce);
         listPokemons.add(salameche);
-        listPokemons.add(abo);
+        listPokemons.add(abo);*/
 
         /* fin liste provisoire  */
 
         listViewPokedex = ( ListView ) findViewById( R.id.pokedex_list);
-        listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, listPokemons));
+        listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, pokedex.getListRace()));
         listViewPokedex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
            @Override

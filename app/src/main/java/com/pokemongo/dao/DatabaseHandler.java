@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.pokemongo.model.Inventaire;
+import com.pokemongo.model.Pokedex;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Stockage;
 
@@ -49,6 +50,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(ObjetDao.DROP_TABLE);
         db.execSQL(StockageDao.DROP_TABLE);
         db.execSQL(UserDao.DROP_TABLE);
+        db.execSQL(PokemonDao.DROP_TABLE);
+        db.execSQL(PokedexDao.DROP_TABLE);
+        db.execSQL(RaceDao.DROP_TABLE);
         onCreate(db);
     }
 }
