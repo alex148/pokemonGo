@@ -1,5 +1,6 @@
 package com.pokemongo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,11 +9,16 @@ import java.util.List;
 public class Inventaire {
 
     private long id;
-    private List<Objet> objets;
+    private List<Item> items;
 
-    public Inventaire(long id, List<Objet> objets) {
+    public Inventaire(long id, List<Item> items) {
         this.id = id;
-        this.objets = objets;
+        this.items = items;
+    }
+
+    public Inventaire(){
+        this.id = 0;
+        this.items = new ArrayList<Item>();
     }
 
     public long getId() {
@@ -23,11 +29,11 @@ public class Inventaire {
         this.id = id;
     }
 
-    public List<Objet> getObjets() {
-        return objets;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setObjets(List<Objet> objets) {
-        this.objets = objets;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }

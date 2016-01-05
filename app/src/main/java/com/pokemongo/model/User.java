@@ -9,11 +9,14 @@ public class User {
     private String login;
     private String password;
     private Stockage pokemons;
+    private Inventaire inventaire;
 
     public User(){
         this.id = -1;
         this.login = "";
         this.password = "";
+        this.pokemons = new Stockage();
+        this.inventaire = new Inventaire();
     }
 
     public User(long id, String login, String password){
@@ -21,6 +24,7 @@ public class User {
         this.login = login;
         this.password = password;
         this.pokemons = new Stockage();
+        this.inventaire = new Inventaire();
     }
 
     public User(long id, String login, String password, Stockage pokemons){
@@ -28,6 +32,14 @@ public class User {
         this.login = login;
         this.password = password;
         this.pokemons = pokemons;
+    }
+
+    public User(long id, String login, String password, Stockage pokemons, Inventaire inventaire){
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.pokemons = pokemons;
+        this.inventaire = inventaire;
     }
 
     public long getId() {
@@ -60,5 +72,13 @@ public class User {
 
     public void setPokemons(Stockage pokemons) {
         this.pokemons = pokemons;
+    }
+
+    public Inventaire getInventaire() {
+        return inventaire;
+    }
+
+    public void setInventaire(Inventaire inventaire) {
+        this.inventaire = inventaire;
     }
 }
