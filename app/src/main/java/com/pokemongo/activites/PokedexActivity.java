@@ -135,7 +135,7 @@ public class PokedexActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_map) {
-            Intent newIntent = new Intent(this,MainActivity.class);
+            Intent newIntent = new Intent(this,MapsActivity.class);
             startActivity(newIntent);
         }else if (id == R.id.nav_team) {
             Intent newIntent = new Intent(this,TeamActivity.class);
