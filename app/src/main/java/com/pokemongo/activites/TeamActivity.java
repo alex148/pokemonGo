@@ -113,6 +113,10 @@ public class TeamActivity extends AppCompatActivity
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
             startActivity(newIntent);
+        }else if( id == R.id.deconnexion){
+            Intent newIntent = new Intent(this,LoginActivity.class);
+            startActivity(newIntent);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
