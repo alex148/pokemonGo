@@ -122,6 +122,7 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
             p.setNiveau(cursor.getInt(7));
             p.setExperience(cursor.getInt(8));
             p.setRace(raceDao.getRaceByID(cursor.getInt(9)));
+            p.setAttaques(attaquePokemonDao.getAttaquesPokemon(p));
             return p;
         }catch(Exception e){
             System.out.print(e.getMessage());

@@ -107,7 +107,7 @@ public class AttaqueDao extends Dao implements Crud<Attaque> {
     public Attaque getAttaqueById(long id) {
         Attaque a=new Attaque();
         try{
-            Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+"WHERE ID_Attaque="+id,null);
+            Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE ID_Attaque="+id,null);
             cursor.moveToFirst();
             a = new Attaque(cursor.getLong(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3)
                     ,cursor.getString(4), CategorieAttaque.valueOf(cursor.getString(5)), Type.valueOf(cursor.getString(6)));
