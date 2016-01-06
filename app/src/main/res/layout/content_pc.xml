@@ -12,4 +12,12 @@
     tools:context="com.pokemongo.activites.PCActivity"
     tools:showIn="@layout/app_bar_pc">
 
+    <ListView
+        android:id="@+id/pc_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ListView>
+
 </RelativeLayout>

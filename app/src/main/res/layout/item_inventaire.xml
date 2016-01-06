@@ -5,12 +5,13 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imagePokemon"
-        android:layout_width="75dp"
-        android:layout_height="75dp" />
+        android:id="@+id/imageObjet"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"/>
 
     <TextView
-        android:id="@+id/nomPokemon"
+        android:id="@+id/nomObjet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -19,19 +20,11 @@
         />
 
     <TextView
-        android:id="@+id/type1Pokemon"
+        android:id="@+id/nbObjet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="15dp"
         />
-    <TextView
-        android:id="@+id/type2Pokemon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="5dp"
-        />
-
 
 </LinearLayout>

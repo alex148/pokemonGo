@@ -36,7 +36,6 @@ public class Race implements Serializable {
     }
 
 
-
     public long getId() {
         return id;
     }

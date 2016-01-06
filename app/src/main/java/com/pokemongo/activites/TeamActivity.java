@@ -21,8 +21,10 @@ import com.pokemongo.activites.MainActivity;
 import com.pokemongo.activites.PokedexActivity;
 import com.pokemongo.activites.SettingsActivity;
 import com.pokemongo.controllers.TeamAdapter;
+import com.pokemongo.model.Attaque;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
+import com.pokemongo.model.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +56,32 @@ public class TeamActivity extends AppCompatActivity
         Pokemon carapuce = new Pokemon();
         Race cara =new Race();
         cara.setNomRace("Carapuce");
+        cara.setType1(Type.Eau);
+        cara.setType2(Type.None);
         carapuce.setRace(cara);
         carapuce.setNiveau(25);
+        carapuce.setExperience(2555);
+        carapuce.setPv(250);
+        carapuce.setAttaque(15);
+        carapuce.setAttaqueSpe(10);
+        carapuce.setDefense(20);
+        carapuce.setDefenseSpe(25);
+        carapuce.setVitesse(16);
+
+        Attaque ecume =new Attaque();
+        ecume.setNom("Ecume");
+        ecume.setType(Type.Eau);
+        ecume.setDescription("De nombreuses bulles sont lancées à l'ennemi, peut baisser sa vitesse.");
+
+        Attaque charge = new Attaque();
+        charge.setNom("Charge");
+        charge.setType(Type.Normal);
+        charge.setDescription("Le lanceur charge l'ennemi et le percute de tout son corps.");
+
+        List<Attaque> attaques = new ArrayList<>();
+        attaques.add(charge);
+        attaques.add(ecume);
+        carapuce.setAttaques(attaques);
 
         List<Pokemon> team =new ArrayList<>();
         team.add(carapuce);
@@ -66,11 +92,11 @@ public class TeamActivity extends AppCompatActivity
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Race pokemon = (Race) listViewTeam.getAdapter().getItem(position);
+                Pokemon pokemon = (Pokemon) listViewTeam.getAdapter().getItem(position);
 
-                    Intent intent = new Intent(TeamActivity.this, PokemonDetailsActivity.class);
-                    //intent.putExtra("pokemon", pokemon);
-                    startActivity(intent);
+                Intent intent = new Intent(TeamActivity.this, PokemonDetailsActivity.class);
+                intent.putExtra("pokemon", pokemon);
+                startActivity(intent);
 
             }
         });

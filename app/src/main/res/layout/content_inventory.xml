@@ -12,4 +12,11 @@
     tools:context="com.pokemongo.activites.InventoryActivity"
     tools:showIn="@layout/app_bar_inventory">
 
+    <ListView
+        android:id="@+id/inventory_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
 </RelativeLayout>

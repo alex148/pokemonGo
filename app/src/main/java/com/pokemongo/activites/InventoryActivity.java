@@ -1,5 +1,6 @@
 package com.pokemongo.activites;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,16 +10,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.example.alex.pokemongo.R;
+import com.pokemongo.controllers.InventoryAdapter;
+import com.pokemongo.model.Objet;
+import com.pokemongo.model.Objets;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventoryActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ListView listViewInventory;
+    private Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
+        ctx=this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -30,6 +42,21 @@ public class InventoryActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        Objet pokeball = new Objet();
+        pokeball.setNom("Pokeball");
+
+        Objets pokeballs = new Objets();
+        pokeballs.setObjet(pokeball);
+        pokeballs.setQuantite(12);
+
+        List<Objets> inventaire = new ArrayList<>();
+        inventaire.add(pokeballs);
+
+        listViewInventory = (ListView) findViewById( R.id.inventory_list);
+        listViewInventory.setAdapter(new InventoryAdapter(ctx, R.layout.item_inventaire, inventaire));
+
     }
 
     @Override

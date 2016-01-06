@@ -13,6 +13,7 @@
         android:layout_height="170dp"
         android:layout_width="match_parent">
        <RelativeLayout
+           android:id="@+id/headerPokedex"
            android:layout_height="match_parent"
            android:layout_width="match_parent">
 
