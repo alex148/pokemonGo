@@ -13,6 +13,7 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.alex.pokemongo.R;
+import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
 import com.pokemongo.model.Type;
 
@@ -26,7 +27,7 @@ public class PokedexDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pokedex_details);
         setupActionBar();
 
-        Race pokemon = getIntent().getExtras().getParcelable("pokemon");
+        Race pokemon = (Race)getIntent().getExtras().get("pokemon");
 
         ImageView imagePokemon = (ImageView) findViewById(R.id.imagePokemon);
         String uri = "drawable/" + pokemon.getNomRace().toLowerCase();

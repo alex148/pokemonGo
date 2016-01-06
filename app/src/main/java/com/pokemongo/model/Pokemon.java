@@ -1,11 +1,12 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Thomas on 04/01/2016.
  */
-public class Pokemon {
+public class Pokemon implements Serializable {
 
     private long id;
     private int pv;

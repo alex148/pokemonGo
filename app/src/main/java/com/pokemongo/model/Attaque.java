@@ -1,9 +1,11 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Thomas on 04/01/2016.
  */
-public class Attaque {
+public class Attaque implements Serializable {
 
     private long id;
     private String nom;

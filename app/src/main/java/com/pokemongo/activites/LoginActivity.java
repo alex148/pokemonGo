@@ -46,6 +46,8 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private UserDao userDao;
+
+    private User user;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -320,9 +322,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             String login = mEmail;
             String password =mPassword;
 
-            User u = userDao.getUser(login, password);
+            user = userDao.getUser(login, password);
 
-            if(u != null){
+            if(user != null){
                 return true;
             }
             // TODO: register the new account here.
@@ -337,6 +339,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 Intent newIntent = new Intent(LoginActivity.this,MainActivity.class);
+                if(user != null){
+                    newIntent.putExtra("user",user);
+                }
                 startActivity(newIntent);
                 finish();
             } else {

@@ -1,12 +1,13 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Alex on 04/01/2016.
  */
-public class Inventaire {
+public class Inventaire implements Serializable {
 
     private long id;
     private List<Objets> items;

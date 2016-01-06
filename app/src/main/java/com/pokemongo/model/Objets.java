@@ -1,9 +1,11 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Alex on 05/01/2016.
  */
-public class Objets {
+public class Objets implements Serializable {
 
     private Objet objet;
     private int quantite;

@@ -1,9 +1,11 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Robin on 04/01/2016.
  */
-public enum Type {
+public enum Type implements Serializable {
     Eau,
     Feu,
     Plante,

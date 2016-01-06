@@ -1,9 +1,11 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Alex on 18/12/2015.
  */
-public class User {
+public class User implements Serializable {
 
     private long id;
     private String login;

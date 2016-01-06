@@ -3,10 +3,12 @@ package com.pokemongo.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * Created by Thomas on 04/01/2016.
  */
-public class Race implements Parcelable {
+public class Race implements Serializable {
 
     private long id;
     private String nomRace;
@@ -31,53 +33,8 @@ public class Race implements Parcelable {
 
     }
 
-    public Race(Parcel in){
 
-        this.id = in.readLong();
-        this.nomRace = in.readString();
-        this.description = in.readString();
-        this.poids = in.readDouble();
-        this.taille = in.readDouble();
-        this.type1 = Type.valueOf(in.readString());
-        this.type2 = Type.valueOf(in.readString());
-        boolean[] boolarray = new boolean[1];  // impossible de passer un boolean tout seul -> passe un array
-        in.readBooleanArray(boolarray);
-        this.decouvert=boolarray[0];
-    }
 
-    @Override
-    public int describeContents()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeLong(id);
-        dest.writeString(nomRace);
-        dest.writeString(description);
-        dest.writeDouble(poids);
-        dest.writeDouble(taille);
-        dest.writeString(type1.toString());
-        dest.writeString(type2.toString());
-        dest.writeBooleanArray(new boolean[]{decouvert});
-    }
-
-    public static final Parcelable.Creator<Race> CREATOR = new Parcelable.Creator<Race>()
-    {
-        @Override
-        public Race createFromParcel(Parcel source)
-        {
-            return new Race(source);
-        }
-
-        @Override
-        public Race[] newArray(int size)
-        {
-            return new Race[size];
-        }
-    };
     public long getId() {
         return id;
     }
@@ -142,8 +99,4 @@ public class Race implements Parcelable {
         this.type2 = type2;
     }
 
-    public static Parcelable.Creator<Race> getCreator()
-    {
-        return CREATOR;
-    }
 }

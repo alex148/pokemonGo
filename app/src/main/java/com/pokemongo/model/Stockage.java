@@ -1,12 +1,13 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Alex on 04/01/2016.
  */
-public class Stockage {
+public class Stockage implements Serializable {
 
     private List<Pokemon> pokemons;
     private TypeStockage type;
