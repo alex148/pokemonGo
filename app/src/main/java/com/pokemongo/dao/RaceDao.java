@@ -15,8 +15,10 @@ import java.util.List;
  */
 public class RaceDao extends Dao implements Crud<Race> {
 
+    private ZoneDao zoneDao;
     public RaceDao(Context context){
         super(context);
+        zoneDao=new ZoneDao(context);
         this.open();
     }
 
@@ -95,6 +97,7 @@ public class RaceDao extends Dao implements Crud<Race> {
             do{
                 Race r = new Race(cursor.getLong(0),cursor.getString(1),cursor.getString(2),
                         cursor.getInt(3),cursor.getInt(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
+                zoneDao.getZonesByPokemon(r.getId());
                 ListRace.add(r);
             }while (cursor.moveToNext());
             return ListRace;
@@ -110,6 +113,7 @@ public class RaceDao extends Dao implements Crud<Race> {
             cursor.moveToFirst();
             race = new Race(cursor.getLong(0),cursor.getString(1),cursor.getString(2),
                     cursor.getInt(3),cursor.getInt(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
+            zoneDao.getZonesByPokemon(race.getId());
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

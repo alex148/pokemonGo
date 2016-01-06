@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Thomas on 04/01/2016.
@@ -18,6 +19,7 @@ public class Race implements Serializable {
     private Type type1;
     private Type type2;
     private boolean decouvert;
+    private List<Zone> zones;
 
     public Race(long id, String nomRace, String description, double poids, double taille,Type type1,Type type2,Boolean decouvert) {
         this.id = id;
@@ -99,4 +101,11 @@ public class Race implements Serializable {
         this.type2 = type2;
     }
 
+    public List<Zone> getZones() {
+        return zones;
+    }
+
+    public void setZones(List<Zone> zones) {
+        this.zones = zones;
+    }
 }

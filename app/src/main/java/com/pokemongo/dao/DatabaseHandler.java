@@ -49,6 +49,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         db.execSQL(AttaquePokemonDao.TABLE_CREATE);
         db.execSQL(AttaquePokemonDao.INSERT_POKEMON_ATTAQUE);
+
+        db.execSQL(ZoneDao.TABLE_CREATE);
+        db.execSQL(ZoneDao.INSERT_ZONE);
     }
 
     @Override
@@ -59,6 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(UserDao.DROP_TABLE);
         db.execSQL(PokemonDao.DROP_TABLE);
         db.execSQL(PokedexDao.DROP_TABLE);
+        db.execSQL(ZoneDao.DROP_TABLE);
         db.execSQL(RaceDao.DROP_TABLE);
         db.execSQL(AttaquePokemonDao.DROP_TABLE);
         db.execSQL(AttaqueDao.DROP_TABLE);
