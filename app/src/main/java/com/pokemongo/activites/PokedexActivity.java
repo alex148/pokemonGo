@@ -175,7 +175,11 @@ public class PokedexActivity extends AppCompatActivity
         } else if (id == R.id.nav_inventory) {
             Intent newIntent = new Intent(this,InventoryActivity.class);
             startActivity(newIntent);
-        } else if (id == R.id.nav_settings) {
+        }
+        else if (id == R.id.nav_pc) {
+            Intent newIntent = new Intent(this,PCActivity.class);
+            startActivity(newIntent);
+        }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
             startActivity(newIntent);
         }

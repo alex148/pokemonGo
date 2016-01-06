@@ -19,6 +19,10 @@
             android:icon="@drawable/ic_shopping_basket_black_24dp"
             android:title="Inventaire" />
         <item
+            android:id="@+id/nav_pc"
+            android:icon="@drawable/ic_desktop_windows_black_24dp"
+            android:title="PC" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_manage"
             android:title="Paramètres" />

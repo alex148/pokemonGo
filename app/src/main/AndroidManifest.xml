@@ -78,14 +78,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pokemongo.activites.MainActivity" />
         </activity>
-        <activity android:name="com.pokemongo.activites.PokedexDetailsActivity"
+        <activity
+            android:name="com.pokemongo.activites.PokedexDetailsActivity"
             android:label="Détails"
-            android:launchMode="singleInstance">
-        </activity>
-        <activity android:name="com.pokemongo.activites.PokemonDetailsActivity"
+            android:launchMode="singleInstance"></activity>
+        <activity
+            android:name="com.pokemongo.activites.PokemonDetailsActivity"
             android:label="Détails"
-            android:launchMode="singleInstance">
-        </activity>
+            android:launchMode="singleInstance"></activity>
+        <activity
+            android:name="com.pokemongo.activites.PCActivity"
+            android:label="PC"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
