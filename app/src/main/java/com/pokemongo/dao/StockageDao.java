@@ -19,6 +19,8 @@ import java.util.List;
  */
 public class StockageDao extends Dao implements Crud<StockageLiaison> {
 
+    private PokemonDao pokemonDao;
+
     public static final String TABLE_NAME = "stockage";
     public static final String USER_KEY = "ID_User";
     public static final String POKEMON_KEY = "ID_Pokemon";
@@ -34,10 +36,11 @@ public class StockageDao extends Dao implements Crud<StockageLiaison> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_STOCKAGE_TEST = "INSERT INTO "+TABLE_NAME+" VALUES(1,1,'"+TypeStockage.EQUIPE.toString()+"')";
+    public static final String INSERT_STOCKAGE_TEST = "INSERT INTO "+TABLE_NAME+" VALUES(1,1,'"+TypeStockage.PC.toString()+"')";
 
     public StockageDao(Context context){
         super(context);
+        pokemonDao = new PokemonDao(context);
         this.open();
     }
 
@@ -95,23 +98,30 @@ public class StockageDao extends Dao implements Crud<StockageLiaison> {
     }
 
     public List<Pokemon> getPokemonsFromStockage(User user, String type){
-        List<Pokemon> pokemons = new ArrayList<Pokemon>();
-        Cursor cursor;
-        if(type == null){
-             cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ USER_KEY +" = ?"
-                     ,new String[]{String.valueOf(user.getId())});
+        try{
+            List<Pokemon> pokemons = new ArrayList<Pokemon>();
+            Cursor cursor;
+            if(type == null){
+                cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ USER_KEY +" = ?"
+                        ,new String[]{String.valueOf(user.getId())});
 
-        }else{
-            cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ USER_KEY +" = ? AND "+TYPE_STOCKAGE+" = ?"
-                    ,new String[]{String.valueOf(user.getId()),type});
+            }else{
+                cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ USER_KEY +" = ? AND "+TYPE_STOCKAGE+" = ?"
+                        ,new String[]{String.valueOf(user.getId()),type});
+            }
+            if(cursor.getCount() == 0){
+                return null;
+            }
+            while(cursor.moveToNext()){
+                Pokemon p = this.pokemonDao.getById(cursor.getLong(1));
+                if(p != null){
+                    pokemons.add(p);
+                }
+            }
+            return pokemons;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-
-        while(cursor.moveToNext()){
-            Pokemon p = new Pokemon();
-
-            //todo
-            pokemons.add(p);
-        }
-        return pokemons;
+        return null;
     }
 }

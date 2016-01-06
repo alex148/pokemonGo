@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.pokemongo.model.Attaque;
 import com.pokemongo.model.Inventaire;
 import com.pokemongo.model.Pokedex;
 import com.pokemongo.model.Pokemon;
@@ -42,6 +43,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         db.execSQL(StockageDao.TABLE_CREATE);
         db.execSQL(StockageDao.INSERT_STOCKAGE_TEST);
+
+        db.execSQL(AttaqueDao.TABLE_CREATE);
+        db.execSQL(AttaqueDao.INSERT_ATTAQUE);
+
+        db.execSQL(AttaquePokemonDao.TABLE_CREATE);
+        db.execSQL(AttaquePokemonDao.INSERT_POKEMON_ATTAQUE);
     }
 
     @Override
@@ -53,6 +60,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(PokemonDao.DROP_TABLE);
         db.execSQL(PokedexDao.DROP_TABLE);
         db.execSQL(RaceDao.DROP_TABLE);
+        db.execSQL(AttaquePokemonDao.DROP_TABLE);
+        db.execSQL(AttaqueDao.DROP_TABLE);
         onCreate(db);
     }
 }

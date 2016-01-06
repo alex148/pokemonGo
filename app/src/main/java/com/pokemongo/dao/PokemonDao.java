@@ -103,6 +103,32 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
         }
     }
 
+    public Pokemon getById(long id){
+        try{
+            Pokemon p = new Pokemon();
+            Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE "+ KEY +" = ?"
+                    ,new String[]{String.valueOf(id)});
+            if(cursor == null || cursor.getCount() != 1){
+                return null;
+            }
+            cursor.moveToFirst();
+            p.setId(cursor.getLong(0));
+            p.setPv(cursor.getInt(1));
+            p.setAttaque(cursor.getInt(2));
+            p.setAttaqueSpe(cursor.getInt(3));
+            p.setDefense(cursor.getInt(4));
+            p.setDefenseSpe(cursor.getInt(5));
+            p.setVitesse(cursor.getInt(6));
+            p.setNiveau(cursor.getInt(7));
+            p.setExperience(cursor.getInt(8));
+            p.setRace(raceDao.getRaceByID(cursor.getInt(9)));
+            return p;
+        }catch(Exception e){
+            System.out.print(e.getMessage());
+        }
+       return null;
+    }
+
     @Override
     public List<Pokemon> getAll() {
         List<Pokemon> ListPokemon=new ArrayList<>();

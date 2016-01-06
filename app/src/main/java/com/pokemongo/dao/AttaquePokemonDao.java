@@ -31,13 +31,13 @@ public class AttaquePokemonDao extends Dao implements Crud<AttaqueLiaison> {
             "( "
             +ATTAQUE_KEY+" INTEGER NOT NULL , "
             +POKEMON_KEY+" INTEGER NOT NULL , "
-            +"PRIMARY_KEY("+ATTAQUE_KEY+","+POKEMON_KEY+"),"
+            +"PRIMARY KEY("+ATTAQUE_KEY+","+POKEMON_KEY+"),"
             +"FOREIGN KEY("+ATTAQUE_KEY+") REFERENCES "+ AttaqueDao.TABLE_NAME+"("+AttaqueDao.KEY+"),"
             +"FOREIGN KEY("+POKEMON_KEY+") REFERENCES "+ PokemonDao.TABLE_NAME+"("+PokemonDao.KEY+")"
             + ");";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
-
+    public static final String INSERT_POKEMON_ATTAQUE="INSERT INTO "+TABLE_NAME+" VALUES(0,1);";
     @Override
     public long insert(AttaqueLiaison object) {
         try {

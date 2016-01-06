@@ -43,7 +43,7 @@ public class AttaqueDao extends Dao implements Crud<Attaque> {
             + ");";
 
 
-
+    public static final String INSERT_ATTAQUE = "INSERT INTO "+TABLE_NAME+" VALUES(0,'Charge',20,100,'Charge l adversaire de tout son poids','Physique','Normal');";
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
     @Override
