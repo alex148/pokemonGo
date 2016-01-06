@@ -37,4 +37,8 @@ public class Inventaire implements Serializable {
     public void setItems(List<Objets> items) {
         this.items = items;
     }
+
+    public void addItem(Objets objets){
+        this.items.add(objets);
+    }
 }

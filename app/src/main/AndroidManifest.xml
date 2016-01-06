@@ -90,6 +90,11 @@
             android:name="com.pokemongo.activites.PCActivity"
             android:label="PC"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity 
+            android:name="com.pokemongo.activites.CreerCompteActivity"
+            android:label="Creer votre compte"
+            android:launchMode="singleInstance">
+        </activity>
     </application>
 
 </manifest>

@@ -36,7 +36,7 @@ public class StockageDao extends Dao implements Crud<StockageLiaison> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_STOCKAGE_TEST = "INSERT INTO "+TABLE_NAME+" VALUES(1,1,'"+TypeStockage.PC.toString()+"')";
+    public static final String INSERT_STOCKAGE_TEST = "INSERT INTO "+TABLE_NAME+" VALUES(1,0,'"+TypeStockage.PC.toString()+"')";
 
     public StockageDao(Context context){
         super(context);

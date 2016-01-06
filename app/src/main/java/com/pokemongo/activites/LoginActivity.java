@@ -98,6 +98,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+
+        Button creerCompte = (Button) findViewById(R.id.creer_compte_button);
+        creerCompte.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(LoginActivity.this,CreerCompteActivity.class);
+                startActivity(newIntent);
+                finish();
+            }
+        });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         try{
@@ -339,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 Intent newIntent = new Intent(LoginActivity.this,MainActivity.class);
-                if(user != null){
+            if(user != null){
                     newIntent.putExtra("user",user);
                 }
                 startActivity(newIntent);

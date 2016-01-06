@@ -33,7 +33,7 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
     public static final String VITESSE= "vitesse";
     public static final String NIVEAU= "niveau";
     public static final String EXPERIENCE= "experience";
-    public static final String RACE_KEY = "ID_Pokemon";
+    public static final String RACE_KEY = "ID_Race";
 
     public static final String TABLE_CREATE = "CREATE TABLE "+TABLE_NAME+" " +
             "( "
@@ -46,13 +46,13 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
             +VITESSE+" INTEGER NOT NULL,"
             +NIVEAU+" INTEGER NOT NULL,"
             +EXPERIENCE+" INTEGER NOT NULL,"
-            +RACE_KEY+"INTEGER NOT NULL,"
+            +RACE_KEY+" INTEGER NOT NULL,"
             +"FOREIGN KEY("+RACE_KEY+") REFERENCES "+ RaceDao.TABLE_NAME+"("+RaceDao.KEY+")"
             + ");";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (1,50,20,20,20,20,50,1,0,0);";
+    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (0,50,20,20,20,20,50,1,0,0);";
 
 
     @Override
@@ -65,8 +65,8 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
             value.put(DEFENSE, object.getDefense());
             value.put(DEFENSESPE,object.getDefenseSpe());
             value.put(VITESSE,object.getVitesse());
-            value.put(NIVEAU,object.getVitesse());
-            value.put(EXPERIENCE,object.getVitesse());
+            value.put(NIVEAU,object.getNiveau());
+            value.put(EXPERIENCE,object.getExperience());
             value.put(RACE_KEY,object.getRace().getId());
             return database.insert(TABLE_NAME, null, value);
         }catch(Exception e){

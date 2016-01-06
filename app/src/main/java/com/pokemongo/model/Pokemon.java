@@ -21,7 +21,7 @@ public class Pokemon implements Serializable {
     private List<Attaque> attaques;
 
     public Pokemon(){
-
+        this.id = -1;
     }
     public Pokemon(long id, int pv, int attaque, int attaqueSpe, int defense, int defenseSpe, int vitesse, int niveau, int experience,
                    Race race) {

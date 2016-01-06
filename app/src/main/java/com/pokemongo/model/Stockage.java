@@ -37,4 +37,8 @@ public class Stockage implements Serializable {
     public void setType(TypeStockage type) {
         this.type = type;
     }
+
+    public void addPokemon(Pokemon p){
+        this.pokemons.add(p);
+    }
 }

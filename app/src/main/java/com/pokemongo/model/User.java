@@ -23,6 +23,15 @@ public class User implements Serializable {
         this.pc = new Stockage();
     }
 
+    public User(String login, String password){
+        this.id = -1;
+        this.login = login;
+        this.password = password;
+        this.equipe = new Stockage();
+        this.inventaire = new Inventaire();
+        this.pc = new Stockage();
+    }
+
     public User(long id, String login, String password){
         this.id = id;
         this.login = login;
