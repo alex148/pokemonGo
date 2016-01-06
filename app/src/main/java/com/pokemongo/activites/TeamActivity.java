@@ -1,5 +1,6 @@
 package com.pokemongo.activites;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,23 +10,37 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.alex.pokemongo.R;
 import com.pokemongo.activites.InventoryActivity;
 import com.pokemongo.activites.MainActivity;
 import com.pokemongo.activites.PokedexActivity;
 import com.pokemongo.activites.SettingsActivity;
+import com.pokemongo.controllers.TeamAdapter;
+import com.pokemongo.model.Pokemon;
+import com.pokemongo.model.Race;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeamActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private ListView listViewTeam;
+    private Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
+        ctx=this;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -35,6 +50,32 @@ public class TeamActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Pokemon carapuce = new Pokemon();
+        Race cara =new Race();
+        cara.setNomRace("Carapuce");
+        carapuce.setRace(cara);
+        carapuce.setNiveau(25);
+
+        List<Pokemon> team =new ArrayList<>();
+        team.add(carapuce);
+
+        listViewTeam = (ListView) findViewById( R.id.team_list);
+        listViewTeam.setAdapter(new TeamAdapter(ctx, R.layout.item_team,team));
+        listViewTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Race pokemon = (Race) listViewTeam.getAdapter().getItem(position);
+
+                    Intent intent = new Intent(TeamActivity.this, PokemonDetailsActivity.class);
+                    //intent.putExtra("pokemon", pokemon);
+                    startActivity(intent);
+
+            }
+        });
+
+
     }
 
     @Override

@@ -81,4 +81,5 @@
     <string name="title_activity_pokedex">PokedexActivity</string>
     <string name="title_activity_inventory">InventoryActivity</string>
     <string name="title_activity_team">TeamActivity</string>
+    <string name="title_activity_pokemon_details">PokemonDetailsActivity</string>
 </resources>

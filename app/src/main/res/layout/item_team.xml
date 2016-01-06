@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/imagePokemon"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 
     <TextView
         android:id="@+id/nomPokemon"
@@ -19,19 +19,11 @@
         />
 
     <TextView
-        android:id="@+id/type1Pokemon"
+        android:id="@+id/niveauPokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="15dp"
-        />
-    <TextView
-        android:id="@+id/type2Pokemon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="5dp"
-        />
-
+         />
 
 </LinearLayout>
