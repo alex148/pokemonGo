@@ -32,7 +32,7 @@ public class PokedexActivity extends AppCompatActivity
 
     private ListView listViewPokedex;
     private Context ctx;
-    User user= (User)getIntent().getExtras().get("user");
+    //User user= (User)getIntent().getExtras().get("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,26 +167,26 @@ public class PokedexActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             Intent newIntent = new Intent(this,MainActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_team) {
             Intent newIntent = new Intent(this,TeamActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_pokedex) {
             // on y est déja
         } else if (id == R.id.nav_inventory) {
             Intent newIntent = new Intent(this,InventoryActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }
         else if (id == R.id.nav_pc) {
             Intent newIntent = new Intent(this,PCActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);

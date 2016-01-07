@@ -35,7 +35,7 @@ public class TeamActivity extends AppCompatActivity
 
     private ListView listViewTeam;
     private Context ctx;
-    User user= (User)getIntent().getExtras().get("user");
+    //User user= (User)getIntent().getExtras().get("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class TeamActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Pokemon carapuce = new Pokemon();
+       /* Pokemon carapuce = new Pokemon();
         Race cara =new Race();
         cara.setNomRace("Carapuce");
         cara.setType1(Type.Eau);
@@ -86,12 +86,12 @@ public class TeamActivity extends AppCompatActivity
         carapuce.setAttaques(attaques);
 
         List<Pokemon> team =new ArrayList<>();
-        team.add(carapuce);
+        team.add(carapuce); */
 
-
+        //List<Pokemon> team = user.getEquipe().getPokemons();
 
         listViewTeam = (ListView) findViewById( R.id.team_list);
-        listViewTeam.setAdapter(new TeamAdapter(ctx, R.layout.item_team,team));
+        //listViewTeam.setAdapter(new TeamAdapter(ctx, R.layout.item_team,team));
         listViewTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -127,26 +127,26 @@ public class TeamActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             Intent newIntent = new Intent(this,MainActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_team) {
             // on y est déja
         } else if (id == R.id.nav_pokedex) {
             Intent newIntent = new Intent(this,PokedexActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_inventory) {
             Intent newIntent = new Intent(this,InventoryActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }
         else if (id == R.id.nav_pc) {
             Intent newIntent = new Intent(this,PCActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
-            newIntent.putExtra("user",user);
+            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);

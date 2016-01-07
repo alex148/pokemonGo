@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private UserDao userDao;
 
-    private User user;
+    public User user;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
