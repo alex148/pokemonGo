@@ -16,6 +16,7 @@ import com.example.alex.pokemongo.R;
 import com.pokemongo.controllers.InventoryAdapter;
 import com.pokemongo.model.Objet;
 import com.pokemongo.model.Objets;
+import com.pokemongo.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class InventoryActivity extends AppCompatActivity
 
     private ListView listViewInventory;
     private Context ctx;
+    User user= (User)getIntent().getExtras().get("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,21 +81,26 @@ public class InventoryActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             Intent newIntent = new Intent(this,MainActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_team) {
             Intent newIntent = new Intent(this,TeamActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_pokedex) {
             Intent newIntent = new Intent(this,PokedexActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_inventory) {
             // on y est déja
         }
         else if (id == R.id.nav_pc) {
             Intent newIntent = new Intent(this,PCActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);

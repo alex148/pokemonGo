@@ -25,6 +25,7 @@ import com.pokemongo.model.Attaque;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
 import com.pokemongo.model.Type;
+import com.pokemongo.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class TeamActivity extends AppCompatActivity
 
     private ListView listViewTeam;
     private Context ctx;
+    User user= (User)getIntent().getExtras().get("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,8 @@ public class TeamActivity extends AppCompatActivity
         List<Pokemon> team =new ArrayList<>();
         team.add(carapuce);
 
+
+
         listViewTeam = (ListView) findViewById( R.id.team_list);
         listViewTeam.setAdapter(new TeamAdapter(ctx, R.layout.item_team,team));
         listViewTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,21 +127,26 @@ public class TeamActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             Intent newIntent = new Intent(this,MainActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_team) {
             // on y est déja
         } else if (id == R.id.nav_pokedex) {
             Intent newIntent = new Intent(this,PokedexActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_inventory) {
             Intent newIntent = new Intent(this,InventoryActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         }
         else if (id == R.id.nav_pc) {
             Intent newIntent = new Intent(this,PCActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
+            newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);
