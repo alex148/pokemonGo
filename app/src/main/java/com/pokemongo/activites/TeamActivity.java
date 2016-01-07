@@ -24,6 +24,7 @@ import com.pokemongo.controllers.TeamAdapter;
 import com.pokemongo.model.Attaque;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
+import com.pokemongo.model.SingletonUser;
 import com.pokemongo.model.Type;
 import com.pokemongo.model.User;
 
@@ -35,7 +36,6 @@ public class TeamActivity extends AppCompatActivity
 
     private ListView listViewTeam;
     private Context ctx;
-    //User user= (User)getIntent().getExtras().get("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,43 +55,10 @@ public class TeamActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       /* Pokemon carapuce = new Pokemon();
-        Race cara =new Race();
-        cara.setNomRace("Carapuce");
-        cara.setType1(Type.Eau);
-        cara.setType2(Type.None);
-        carapuce.setRace(cara);
-        carapuce.setNiveau(25);
-        carapuce.setExperience(2555);
-        carapuce.setPv(250);
-        carapuce.setAttaque(15);
-        carapuce.setAttaqueSpe(10);
-        carapuce.setDefense(20);
-        carapuce.setDefenseSpe(25);
-        carapuce.setVitesse(16);
-
-        Attaque ecume =new Attaque();
-        ecume.setNom("Ecume");
-        ecume.setType(Type.Eau);
-        ecume.setDescription("De nombreuses bulles sont lancées à l'ennemi, peut baisser sa vitesse.");
-
-        Attaque charge = new Attaque();
-        charge.setNom("Charge");
-        charge.setType(Type.Normal);
-        charge.setDescription("Le lanceur charge l'ennemi et le percute de tout son corps.");
-
-        List<Attaque> attaques = new ArrayList<>();
-        attaques.add(charge);
-        attaques.add(ecume);
-        carapuce.setAttaques(attaques);
-
-        List<Pokemon> team =new ArrayList<>();
-        team.add(carapuce); */
-
-        //List<Pokemon> team = user.getEquipe().getPokemons();
+        List<Pokemon> team = SingletonUser.getInstance().getUser().getEquipe().getPokemons();
 
         listViewTeam = (ListView) findViewById( R.id.team_list);
-        //listViewTeam.setAdapter(new TeamAdapter(ctx, R.layout.item_team,team));
+        listViewTeam.setAdapter(new TeamAdapter(ctx, R.layout.item_team,team));
         listViewTeam.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -127,26 +94,21 @@ public class TeamActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             Intent newIntent = new Intent(this,MainActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_team) {
             // on y est déja
         } else if (id == R.id.nav_pokedex) {
             Intent newIntent = new Intent(this,PokedexActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_inventory) {
             Intent newIntent = new Intent(this,InventoryActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }
         else if (id == R.id.nav_pc) {
             Intent newIntent = new Intent(this,PCActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);

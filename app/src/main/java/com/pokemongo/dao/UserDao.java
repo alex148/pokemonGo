@@ -108,7 +108,7 @@ public class UserDao extends Dao implements Crud<User> {
             Stockage equipe = new Stockage();
             equipe.setPokemons(this.stockageDao.getPokemonsFromStockage(u, TypeStockage.EQUIPE.toString()));
             equipe.setType(TypeStockage.EQUIPE);
-
+            u.setEquipe(equipe);
             return u;
         }catch(Exception e){
             System.out.println(e.getMessage());

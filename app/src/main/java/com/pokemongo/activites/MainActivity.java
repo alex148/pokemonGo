@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity
     LocationManager locationManager;
     String provider;
     LatLng myPosition;
-    //User user= (User)getIntent().getExtras().get("user");
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -180,24 +180,18 @@ public class MainActivity extends AppCompatActivity
             // on y est déja
         }else if (id == R.id.nav_team) {
             Intent newIntent = new Intent(this,TeamActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_pokedex) {
             Intent newIntent = new Intent(this,PokedexActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_inventory) {
             Intent newIntent = new Intent(this,InventoryActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
-        }
-        else if (id == R.id.nav_pc) {
+        }else if (id == R.id.nav_pc) {
             Intent newIntent = new Intent(this,PCActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);

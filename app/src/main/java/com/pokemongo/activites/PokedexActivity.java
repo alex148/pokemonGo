@@ -32,7 +32,6 @@ public class PokedexActivity extends AppCompatActivity
 
     private ListView listViewPokedex;
     private Context ctx;
-    //User user= (User)getIntent().getExtras().get("user");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,80 +41,7 @@ public class PokedexActivity extends AppCompatActivity
         
         PokedexDao pokedexDao = new PokedexDao(this);
         Pokedex pokedex=pokedexDao.getPokedex(new User(1, "test", "test"));
-
-        /*   Liste provisoire de test   */
-
-        /*Race bulbizarre = new Race();
-        bulbizarre.setNomRace("Bulbizarre");
-        bulbizarre.setType1(Type.Plante);
-        bulbizarre.setType2(Type.Poison);
-        bulbizarre.setDecouvert(true);
-        bulbizarre.setPoids(12.3);
-        bulbizarre.setTaille(1.5);
-        bulbizarre.setId(1);
-        bulbizarre.setDescription("bulbi");
-
-        Race herbizarre = new Race();
-        herbizarre.setNomRace("Herbizarre");
-        herbizarre.setType1(Type.Plante);
-        herbizarre.setType2(Type.Poison);
-        herbizarre.setDecouvert(true);
-        herbizarre.setPoids(13);
-        herbizarre.setTaille(1.5);
-        herbizarre.setId(2);
-        herbizarre.setDescription("Le bulbe sur le dos de Herbizarre a éclos, dévoilant ainsi une fleur fermée. Plus il passe de temps au soleil, plus sa fleur se prépare à s'ouvrir, et quelques temps avant son évolution, il dégage une douce odeur fruitée. Attention à ses Tranch'herbes et à ses Fouets lianes.");
-
-        Race florizarre = new Race();
-        florizarre.setNomRace("Florizarre");
-        florizarre.setType1(Type.Plante);
-        florizarre.setType2(Type.Poison);
-        florizarre.setDecouvert(true);
-        florizarre.setPoids(12.3);
-        florizarre.setTaille(1.5);
-        florizarre.setId(3);
-        florizarre.setDescription("Comme un panneau solaire , les pétales de la fleur de Florizarre transforment les rayons du soleil en énergie. Il est maître d'un troupeau de Herbizarre et de Bulbizarre, qu'il garde férocement. L'odeur se dégageant de sa fleur est exquise, mais mieux vaut ne pas s'approcher d'un Florizarre sauvage et de sa horde.");
-
-
-
-        Race salameche = new Race();
-        salameche.setNomRace("Salameche");
-        salameche.setType1(Type.Feu);
-        salameche.setType2(Type.None);
-        salameche.setDecouvert(true);
-        salameche.setPoids(11.3);
-        salameche.setTaille(1.6);
-        salameche.setId(4);
-        salameche.setDescription("sala");
-
-        Race carapuce = new Race();
-        carapuce.setNomRace("Carapuce");
-        carapuce.setType1(Type.Eau);
-        carapuce.setType2(Type.None);
-        carapuce.setDecouvert(true);
-        carapuce.setPoids(10.3);
-        carapuce.setTaille(1.7);
-        carapuce.setId(5);
-        carapuce.setDescription("cara");
-
-        Race abo = new Race();
-        abo.setNomRace("Abo");
-        abo.setType1(Type.Poison);
-        abo.setType2(Type.None);
-        abo.setDecouvert(false);
-        abo.setPoids(12.3);
-        abo.setTaille(1.5);
-        abo.setId(6);
-        abo.setDescription("abo");
-
-        List<Race> listPokemons= new ArrayList<Race>();
-        listPokemons.add(bulbizarre);
-        listPokemons.add(herbizarre);
-        listPokemons.add(florizarre);
-        listPokemons.add(carapuce);
-        listPokemons.add(salameche);
-        listPokemons.add(abo);*/
-
-        /* fin liste provisoire  */
+        
 
         listViewPokedex = ( ListView ) findViewById( R.id.pokedex_list);
         listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, pokedex.getListRace()));
@@ -167,26 +93,21 @@ public class PokedexActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             Intent newIntent = new Intent(this,MainActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_team) {
             Intent newIntent = new Intent(this,TeamActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         } else if (id == R.id.nav_pokedex) {
             // on y est déja
         } else if (id == R.id.nav_inventory) {
             Intent newIntent = new Intent(this,InventoryActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }
         else if (id == R.id.nav_pc) {
             Intent newIntent = new Intent(this,PCActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if (id == R.id.nav_settings) {
             Intent newIntent = new Intent(this,SettingsActivity.class);
-            //newIntent.putExtra("user",user);
             startActivity(newIntent);
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);

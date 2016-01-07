@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.example.alex.pokemongo.R;
 import com.pokemongo.dao.UserDao;
 import com.pokemongo.model.Inventaire;
+import com.pokemongo.model.SingletonUser;
 import com.pokemongo.model.User;
 
 import java.util.ArrayList;
@@ -350,7 +351,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 Intent newIntent = new Intent(LoginActivity.this,MainActivity.class);
             if(user != null){
-                    newIntent.putExtra("user",user);
+                    //newIntent.putExtra("user",user);
+                SingletonUser.getInstance().ajoutUser(user);
                 }
                 startActivity(newIntent);
                 finish();

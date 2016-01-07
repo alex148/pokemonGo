@@ -12,7 +12,9 @@
     tools:context="com.pokemongo.activites.PokemonDetailsActivity">
 <TableLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:stretchColumns="0"
+    >
 <TableRow
     android:layout_height="170dp"
     android:layout_width="match_parent">
@@ -35,6 +37,7 @@
             android:layout_marginTop="15dp"
             android:layout_toRightOf="@id/imagePokemon"
             android:textStyle="bold"
+            android:textSize="20dp"
             />
 
         <TextView
@@ -161,6 +164,7 @@
                     android:textStyle="bold"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
+                    android:textSize="15dp"
                     />
                 <TextView
                     android:id="@+id/typeAttaque1"
@@ -171,11 +175,12 @@
                     />
                 <TextView
                     android:id="@+id/descriptionAttaque1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="5dp"
+                    android:singleLine="false"
                     android:layout_below="@id/nomAttaque1"
                     />
             </RelativeLayout>
@@ -191,6 +196,7 @@
                     android:textStyle="bold"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
+                    android:textSize="15dp"
                     />
                 <TextView
                     android:id="@+id/typeAttaque2"
@@ -201,11 +207,12 @@
                     />
                 <TextView
                     android:id="@+id/descriptionAttaque2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="5dp"
+                    android:singleLine="false"
                     android:layout_below="@id/nomAttaque2"
                     />
             </RelativeLayout>
@@ -221,6 +228,7 @@
                     android:textStyle="bold"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
+                    android:textSize="15dp"
                     />
                 <TextView
                     android:id="@+id/typeAttaque3"
@@ -231,7 +239,7 @@
                     />
                 <TextView
                     android:id="@+id/descriptionAttaque3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"
@@ -251,6 +259,7 @@
                     android:textStyle="bold"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
+                    android:textSize="15dp"
                     />
                 <TextView
                     android:id="@+id/typeAttaque4"
@@ -261,7 +270,7 @@
                     />
                 <TextView
                     android:id="@+id/descriptionAttaque4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="15dp"
