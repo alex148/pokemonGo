@@ -10,7 +10,6 @@ public class Zone {
     private long ID_Race;
 
     public Zone(){
-
     }
     public Zone(long ID_Zone, float longitude, float latitude, long ID_Race) {
         this.ID_Zone = ID_Zone;

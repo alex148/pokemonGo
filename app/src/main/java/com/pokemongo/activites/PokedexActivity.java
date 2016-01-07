@@ -46,7 +46,6 @@ public class PokedexActivity extends AppCompatActivity
         listViewPokedex = ( ListView ) findViewById( R.id.pokedex_list);
         listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, pokedex.getListRace()));
         listViewPokedex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                Race pokemon = (Race) listViewPokedex.getAdapter().getItem( position );
@@ -112,7 +111,6 @@ public class PokedexActivity extends AppCompatActivity
         }else if( id == R.id.deconnexion){
             Intent newIntent = new Intent(this,LoginActivity.class);
             startActivity(newIntent);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

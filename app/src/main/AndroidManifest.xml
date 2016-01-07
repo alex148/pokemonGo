@@ -81,15 +81,24 @@
         <activity
             android:name="com.pokemongo.activites.PokedexDetailsActivity"
             android:label="Détails"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
         <activity
             android:name="com.pokemongo.activites.PokemonDetailsActivity"
             android:label="Détails"
-            android:launchMode="singleInstance"></activity>
+            android:launchMode="singleInstance" />
         <activity
             android:name="com.pokemongo.activites.PCActivity"
             android:label="PC"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.pokemongo.activites.CombatActivity"
+            android:label="@string/title_activity_combat"
+            android:parentActivityName="com.pokemongo.activites.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pokemongo.activites.MainActivity" />
+        </activity>
         <activity 
             android:name="com.pokemongo.activites.CreerCompteActivity"
             android:label="Créer votre compte"

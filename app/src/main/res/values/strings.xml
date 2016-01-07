@@ -85,4 +85,5 @@
     <string name="title_activity_team">TeamActivity</string>
     <string name="title_activity_pokemon_details">PokemonDetailsActivity</string>
     <string name="title_activity_pc">PCActivity</string>
+    <string name="title_activity_combat">CombatActivity</string>
 </resources>
