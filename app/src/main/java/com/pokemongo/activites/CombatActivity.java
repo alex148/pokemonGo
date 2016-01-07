@@ -16,6 +16,8 @@ import com.pokemongo.controllers.CombatManager;
 import com.pokemongo.dao.PokemonDao;
 import com.pokemongo.model.Attaque;
 import com.pokemongo.model.Pokemon;
+import com.pokemongo.model.SingletonUser;
+import com.pokemongo.model.User;
 
 import java.util.List;
 import java.util.Random;
@@ -38,9 +40,10 @@ public class CombatActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         PokemonDao pokemonDao = new PokemonDao(this);
         pokemonDao.getById(0);
-        pokemon = pokemonDao.getById(0);
-        IA = pokemonDao.getById(0);
+        IA =(Pokemon)getIntent().getExtras().get("pokemon");
         sortir=false;
+        User u=SingletonUser.getInstance().getUser();
+        pokemon=u.getEquipe().getPokemons().get(0);
 
         ImageView imageIA = (ImageView) findViewById(R.id.imageIA);
         String uriIA = "drawable/" + IA.getRace().getNomRace().toLowerCase();
