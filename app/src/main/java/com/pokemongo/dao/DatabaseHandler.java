@@ -34,15 +34,26 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         db.execSQL(RaceDao.TABLE_CREATE);
         db.execSQL(RaceDao.INSERT_RACE);
+        db.execSQL(RaceDao.INSERT_RACE_2);
+        db.execSQL(RaceDao.INSERT_RACE_3);
+        db.execSQL(RaceDao.INSERT_RACE_4);
+        db.execSQL(RaceDao.INSERT_RACE_5);
 
         db.execSQL(PokemonDao.TABLE_CREATE);
         db.execSQL(PokemonDao.INSERT_POKEMON);
+        db.execSQL(PokemonDao.INSERT_POKEMON_2);
+        db.execSQL(PokemonDao.INSERT_POKEMON_3);
+        db.execSQL(PokemonDao.INSERT_POKEMON_4);
+
 
         db.execSQL(PokedexDao.TABLE_CREATE);
         db.execSQL(PokedexDao.INSERT_POKEDEX);
 
         db.execSQL(StockageDao.TABLE_CREATE);
         db.execSQL(StockageDao.INSERT_STOCKAGE_TEST);
+        db.execSQL(StockageDao.INSERT_STOCKAGE_TEST_3);
+        db.execSQL(StockageDao.INSERT_STOCKAGE_TEST_2);
+        db.execSQL(StockageDao.INSERT_STOCKAGE_TEST_4);
 
         db.execSQL(AttaqueDao.TABLE_CREATE);
         db.execSQL(AttaqueDao.INSERT_ATTAQUE);

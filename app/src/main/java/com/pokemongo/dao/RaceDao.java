@@ -36,8 +36,8 @@ public class RaceDao extends Dao implements Crud<Race> {
             +KEY+" INTEGER PRIMARY KEY AUTOINCREMENT, "
             +NOM+" STRING NOT NULL,"
             +DESCRIPTION +" STRING NOT NULL,"
-            +POIDS+" INTEGER NOT NULL,"
-            +TAILLE+" INTEGER NOT NULL,"
+            +POIDS+" REAL NOT NULL,"
+            +TAILLE+" REAL NOT NULL,"
             +TYPE1+" STRING NOT NULL,"
             +TYPE2+" STRING NOT NULL "
             + ");";
@@ -45,6 +45,10 @@ public class RaceDao extends Dao implements Crud<Race> {
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
     public static final String INSERT_RACE = "INSERT INTO "+TABLE_NAME+" VALUES (0,'Pikachu','Une souris qui fait des éclairs',14,90,'Electrique','None');";
+    public static final String INSERT_RACE_2 = "INSERT INTO "+TABLE_NAME+" VALUES (1,'Boustiflor','Boustiflor peut faire penser à une cloche. Ses bras sont deux épaisses feuilles vertes, qu il agite comme des ailes.',6.4,1.0,'Plante','Poison');";
+    public static final String INSERT_RACE_3 = "INSERT INTO "+TABLE_NAME+" VALUES (2,'Krabby','Krabby est un petit crabe au haut du corps et aux pinces rouges et au bas de la mâchoire crème.',6.5,0.4,'Eau','None');";
+    public static final String INSERT_RACE_4 = "INSERT INTO "+TABLE_NAME+" VALUES (3,'Minidraco','Minidraco ressemble a un petit serpent de mer ayant une perle sur le front eu un dessous blanc.',3.3,1.8,'Dragon','None');";
+    public static final String INSERT_RACE_5 = "INSERT INTO "+TABLE_NAME+" VALUES (4,'Mewtwo','Mewtwo ressemble a Mew. Il a une tête faisant penser à un chat, son corps quant à lui rapelle celui de la gerboise. Il est mauve presque blanc sur l ensemble du corps, ses yeux et sa queue sont plus foncés. Il possède trois doigts à chaque main se terminant par une sphère.',122,2,'Psy','None');";
 
     @Override
     public long insert(Race object) {
@@ -96,7 +100,7 @@ public class RaceDao extends Dao implements Crud<Race> {
             cursor.moveToFirst();
             do{
                 Race r = new Race(cursor.getLong(0),cursor.getString(1),cursor.getString(2),
-                        cursor.getInt(3),cursor.getInt(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
+                        cursor.getFloat(3),cursor.getFloat(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
                 zoneDao.getZonesByPokemon(r.getId());
                 ListRace.add(r);
             }while (cursor.moveToNext());
@@ -112,7 +116,7 @@ public class RaceDao extends Dao implements Crud<Race> {
             Cursor cursor = database.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE ID_Race="+id,null);
             cursor.moveToFirst();
             race = new Race(cursor.getLong(0),cursor.getString(1),cursor.getString(2),
-                    cursor.getInt(3),cursor.getInt(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
+                    cursor.getFloat(3),cursor.getFloat(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
             zoneDao.getZonesByPokemon(race.getId());
         }catch(Exception e){
             System.out.println(e.getMessage());
