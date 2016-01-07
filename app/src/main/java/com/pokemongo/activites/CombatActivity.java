@@ -87,8 +87,8 @@ public class CombatActivity extends AppCompatActivity {
             });
         }
         if (attaques.size() > 1) {
-            Button attaque1 = (Button) findViewById(R.id.Attaque1);
-            attaque1.setText(attaques.get(0).getNom());
+            Button attaque1 = (Button) findViewById(R.id.Attaque2);
+            attaque1.setText(attaques.get(1).getNom());
             attaque1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     nouveauTour(1);
@@ -96,8 +96,8 @@ public class CombatActivity extends AppCompatActivity {
             });
         }
         if (attaques.size() > 2) {
-            Button attaque1 = (Button) findViewById(R.id.Attaque1);
-            attaque1.setText(attaques.get(0).getNom());
+            Button attaque1 = (Button) findViewById(R.id.Attaque3);
+            attaque1.setText(attaques.get(2).getNom());
             attaque1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     nouveauTour(2);
@@ -105,8 +105,8 @@ public class CombatActivity extends AppCompatActivity {
             });
         }
         if (attaques.size() > 3) {
-            Button attaque1 = (Button) findViewById(R.id.Attaque1);
-            attaque1.setText(attaques.get(0).getNom());
+            Button attaque1 = (Button) findViewById(R.id.Attaque4);
+            attaque1.setText(attaques.get(3).getNom());
             attaque1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     nouveauTour(3);
