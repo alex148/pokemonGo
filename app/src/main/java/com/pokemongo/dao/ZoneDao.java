@@ -37,7 +37,7 @@ public class ZoneDao extends Dao implements Crud<Zone> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_ZONE= "INSERT INTO "+TABLE_NAME+" VALUES (0,'45.783713','4.868944','0');";
+    public static final String INSERT_ZONE= "INSERT INTO "+TABLE_NAME+" VALUES (0,'45.784028', '4.870191','0');";
     public static final String INSERT_ZONE_2= "INSERT INTO "+TABLE_NAME+" VALUES (1,'45.783', '4.864','0');";
     public static final String INSERT_ZONE_3= "INSERT INTO "+TABLE_NAME+" VALUES (2,'45.781', '4.860','1');";
     public static final String INSERT_ZONE_4= "INSERT INTO "+TABLE_NAME+" VALUES (3,'45.745', '4.855','1');";

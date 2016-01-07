@@ -23,5 +23,6 @@ public enum Type implements Serializable {
     Normal,
     Acier,
     Roche,
+    Tenebre,
     None
 }

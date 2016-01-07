@@ -44,6 +44,12 @@ public class AttaqueDao extends Dao implements Crud<Attaque> {
 
 
     public static final String INSERT_ATTAQUE = "INSERT INTO "+TABLE_NAME+" VALUES(0,'Charge',20,100,'Charge l adversaire de tout son poids','Physique','Normal');";
+    public static final String INSERT_ATTAQUE_2 = "INSERT INTO "+TABLE_NAME+" VALUES(1,'A la Queue',15,100,'Retient la cible de force, l obligeant à agir en dernier.','Physique','Tenebre');";
+    public static final String INSERT_ATTAQUE_3 = "INSERT INTO "+TABLE_NAME+" VALUES(2,'Abime',20,30,'Fait tomber l ennemi dans une crevasse et le met K.O.','Physique','Sol');";
+    public static final String INSERT_ATTAQUE_4 = "INSERT INTO "+TABLE_NAME+" VALUES(3,'Aboiement',15,95,'Le lanceur hurle sur l ennemi. Baisse l Attaque Spéciale de l ennemi.','Speciale','Tenebre');";
+    public static final String INSERT_ATTAQUE_5 = "INSERT INTO "+TABLE_NAME+" VALUES(4,'Abri',20,100,'Esquive l attaque, mais peut échouer si réutilisé.','Physique','Normal');";
+    public static final String INSERT_ATTAQUE_6 = "INSERT INTO "+TABLE_NAME+" VALUES(5,'Acidarmure',40,100,'Augmente la Défense du lanceur de deux niveaux.','Physique','Poison');";
+
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
     @Override

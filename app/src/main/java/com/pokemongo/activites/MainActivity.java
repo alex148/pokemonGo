@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,12 +22,8 @@ import android.widget.Toast;
 import com.example.alex.pokemongo.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
@@ -43,6 +37,7 @@ import com.pokemongo.model.Attaque;
 import com.pokemongo.model.MarkerPokemon;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
+import com.pokemongo.model.SingletonUser;
 import com.pokemongo.model.User;
 import com.pokemongo.model.Zone;
 
@@ -54,13 +49,15 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
         , GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener,
-        OnMapReadyCallback
+        OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener
 
 {
 
     // The minimum distance to change Updates in meters
-    private long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 1 meters
+    private long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 1 meters
 
+    private int DISTANCE_DETECTION = 100;
     // The minimum time between updates in milliseconds
     private long MIN_TIME_BW_UPDATES = 1;
 
@@ -69,11 +66,10 @@ public class MainActivity extends AppCompatActivity
 
     private GoogleMap mMap;
     LocationManager locationManager;
-
     private RaceDao raceDao;
     private AttaqueDao attaqueDao;
     private List<MarkerPokemon> markers;
-
+    private User user;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -82,6 +78,7 @@ public class MainActivity extends AppCompatActivity
                     .findFragmentById(R.id.map);
             mMap = fm.getMap();
             mMap.setMyLocationEnabled(true);
+            mMap.setOnMarkerClickListener(this);
             locationManager = (LocationManager) this
                     .getSystemService(LOCATION_SERVICE);
 
@@ -112,10 +109,10 @@ public class MainActivity extends AppCompatActivity
                 if (locationManager != null) {
                     Location location = locationManager
                             .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    if(location == null){
+                    if (location == null) {
                         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     }
-                    if(location == null){
+                    if (location == null) {
                         location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
                     }
                     if (location != null) {
@@ -126,13 +123,13 @@ public class MainActivity extends AppCompatActivity
                 }
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        }
+    }
 
-    public void addPokemons(){
-        try{
+    public void addPokemons() {
+        try {
             List<Attaque> attaques = new ArrayList<Attaque>();
             List<Race> races = this.raceDao.getAll();
             Bitmap imageBitmap;
@@ -142,11 +139,11 @@ public class MainActivity extends AppCompatActivity
 
             attaques = this.attaqueDao.getAll();
             int minAttaque = 0;
-            int maxAttaque = attaques.size()-1;
+            int maxAttaque = attaques.size() - 1;
             int attaque = 0;
-            for (Race r: races) {
-                if(r.getZones() != null && !r.getZones().isEmpty()){
-                    for (Zone zone: r.getZones()) {
+            for (Race r : races) {
+                if (r.getZones() != null && !r.getZones().isEmpty()) {
+                    for (Zone zone : r.getZones()) {
                         Pokemon p = new Pokemon();
                         p.setId(-1);
                         p.setPv(rand.nextInt(300 - 30 + 1) + 30);
@@ -167,51 +164,52 @@ public class MainActivity extends AppCompatActivity
                                 .position(new LatLng(zone.getLongitude(), zone.getLatitude()))
                                 .title(r.getNomRace())
                                 .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap)));
-                        this.markers.add(new MarkerPokemon(m,p));
+                        this.markers.add(new MarkerPokemon(m, p));
 
                     }
                 }
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
+
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            this.raceDao = new RaceDao(this);
-            this.attaqueDao = new AttaqueDao(this);
-            this.markers = new ArrayList<MarkerPokemon>();
-            setContentView(R.layout.activity_main);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.raceDao = new RaceDao(this);
+        this.attaqueDao = new AttaqueDao(this);
+        this.markers = new ArrayList<MarkerPokemon>();
+        this.user = SingletonUser.getInstance().getUser();
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
-
-        @Override
-        public void onBackPressed() {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                super.onBackPressed();
-            }
-        }
-
+    }
 
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -222,23 +220,23 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_map) {
             // on y est déja
-        }else if (id == R.id.nav_team) {
-            Intent newIntent = new Intent(this,TeamActivity.class);
+        } else if (id == R.id.nav_team) {
+            Intent newIntent = new Intent(this, TeamActivity.class);
             startActivity(newIntent);
         } else if (id == R.id.nav_pokedex) {
-            Intent newIntent = new Intent(this,PokedexActivity.class);
+            Intent newIntent = new Intent(this, PokedexActivity.class);
             startActivity(newIntent);
         } else if (id == R.id.nav_inventory) {
-            Intent newIntent = new Intent(this,InventoryActivity.class);
+            Intent newIntent = new Intent(this, InventoryActivity.class);
             startActivity(newIntent);
-        }else if (id == R.id.nav_pc) {
-            Intent newIntent = new Intent(this,PCActivity.class);
+        } else if (id == R.id.nav_pc) {
+            Intent newIntent = new Intent(this, PCActivity.class);
             startActivity(newIntent);
-        }else if (id == R.id.nav_settings) {
-            Intent newIntent = new Intent(this,SettingsActivity.class);
+        } else if (id == R.id.nav_settings) {
+            Intent newIntent = new Intent(this, SettingsActivity.class);
             startActivity(newIntent);
-        }else if( id == R.id.deconnexion){
-            Intent newIntent = new Intent(this,LoginActivity.class);
+        } else if (id == R.id.deconnexion) {
+            Intent newIntent = new Intent(this, LoginActivity.class);
             startActivity(newIntent);
 
         }
@@ -247,49 +245,87 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-            @Override
-            public void onConnected(Bundle bundle) {
 
+    @Override
+    public void onConnected(Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Toast.makeText(this, "onConnectionSuspended", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Toast.makeText(this, "onConnectionFailed", Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        for (MarkerPokemon m : this.markers) {
+            Location targetLocation = new Location("");
+            targetLocation.setLatitude(m.getMarker().getPosition().latitude);
+            targetLocation.setLongitude(m.getMarker().getPosition().longitude);
+            float distance = targetLocation.distanceTo(location);
+            if (distance < DISTANCE_DETECTION) {
+                Toast.makeText(this, "Entrée dans la zone de " + m.getPokemon().getRace().getNomRace() + " !! ", Toast.LENGTH_SHORT).show();
             }
+        }
 
-            @Override
-            public void onConnectionSuspended(int i) {
-                Toast.makeText(this,"onConnectionSuspended",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        MarkerPokemon markerPokemon = null;
+        for (MarkerPokemon m : markers) {
+            if (marker.equals(m.getMarker())) {
+                markerPokemon = m;
+                break;
             }
-
-            @Override
-            public void onConnectionFailed(ConnectionResult connectionResult) {
-                Toast.makeText(this,"onConnectionFailed",Toast.LENGTH_SHORT).show();
+        }
+        if (markerPokemon != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO ask permission
+                return false;
             }
-
-            @Override
-            public void onLocationChanged(Location location){
-
-                Location pikaLoca = new Location(location);
-                pikaLoca.setLatitude(pikatchu.getPosition().latitude);
-                pikaLoca.setLongitude(pikatchu.getPosition().longitude);
-                float f = location.distanceTo(pikaLoca);
-                if(f<50){
-                    Toast.makeText(this,"Entrée dans la zone de pikachu !! ",Toast.LENGTH_SHORT).show();
+            Location currentLocation = locationManager
+                    .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(currentLocation == null){
+                currentLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+            if(currentLocation == null){
+                currentLocation = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            }
+            if(currentLocation != null){
+                Location markerLocation = new Location("");
+                markerLocation.setLatitude(markerPokemon.getMarker().getPosition().latitude);
+                markerLocation.setLongitude(markerPokemon.getMarker().getPosition().longitude);
+                float distance = currentLocation.distanceTo(markerLocation);
+                if(distance<DISTANCE_DETECTION){
+                    Toast.makeText(this, "FIGHT avec un "+markerPokemon.getPokemon().getRace().getNomRace()+"!! TADADADA !! ", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(this,"Distance to pikachu :  "+String.valueOf(f)+" m",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "On dirait un "+markerPokemon.getPokemon().getRace().getNomRace()+" !", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-
+        }
+        return true;
+    }
 }
