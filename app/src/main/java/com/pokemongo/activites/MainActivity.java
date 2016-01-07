@@ -3,6 +3,8 @@ package com.pokemongo.activites;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -27,6 +29,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
@@ -43,6 +46,16 @@ public class MainActivity extends AppCompatActivity
         OnMapReadyCallback
 
 {
+
+    // The minimum distance to change Updates in meters
+    private long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 1 meters
+
+    // The minimum time between updates in milliseconds
+    private long MIN_TIME_BW_UPDATES = 1;
+
+    private static final LatLng PIKATCHU = new LatLng(45.783713, 4.868944);
+    private Marker pikatchu;
+
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
 
@@ -50,7 +63,6 @@ public class MainActivity extends AppCompatActivity
     SupportMapFragment mFragment;
     Marker mCurrLocation;
     private GoogleMap mMap;
-    static GoogleMap googleMap;
     LocationManager locationManager;
     String provider;
     LatLng myPosition;
@@ -58,31 +70,73 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        googleMap = fm.getMap();
-        googleMap.setMyLocationEnabled(true);
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, true);
-        mMap.animateCamera(CameraUpdateFactory.zoomBy(13));
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location location = locationManager.getLastKnownLocation(provider);
-        if (location != null) {
-            onLocationChanged(location);
+        try {
+            SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mMap = fm.getMap();
+            mMap.setMyLocationEnabled(true);
+            //mMap.setMyLocationEnabled(true);
+            locationManager = (LocationManager) this
+                    .getSystemService(LOCATION_SERVICE);
 
+            Criteria criteria = new Criteria();
+            provider = locationManager.getBestProvider(criteria, true);
+            //mMap.animateCamera(CameraUpdateFactory.zoomBy(13));
+
+            // getting GPS status
+            boolean isGPSEnabled = locationManager
+                    .isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            // getting network status
+            boolean isNetworkEnabled = locationManager
+                    .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (!isGPSEnabled && !isNetworkEnabled) {
+                // no network provider is enabled
+            } else {
+                boolean canGetLocation = true;
+                if (isNetworkEnabled) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    locationManager.requestLocationUpdates(
+                            LocationManager.NETWORK_PROVIDER,
+                            this.MIN_TIME_BW_UPDATES,
+                            this.MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                }
+                if (locationManager != null) {
+                    Location location = locationManager
+                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                    if (location != null) {
+                        this.addPokemons(location);
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14.0f));
+                        onLocationChanged(location);
+                    }
+                }
+            }
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
         }
+
+    public void addPokemons(Location location){
+        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier("pikachu", "drawable", getPackageName()));
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 100, 100, false);
+
+        this.pikatchu = mMap.addMarker(new MarkerOptions()
+                .position(PIKATCHU)
+                .title("pikachu")
+                .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap)));
+    }
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,31 +245,19 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void onLocationChanged(Location location) {
-
-                //remove previous current location marker and add new one at current position
-                if (mCurrLocation != null) {
-                    mCurrLocation.remove();
+            public void onLocationChanged(Location location){
+              //  Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
+                //mMap.animateCamera(CameraUpdateFactory.zoomBy(13));
+                Location pikaLoca = new Location(location);
+                pikaLoca.setLatitude(pikatchu.getPosition().latitude);
+                pikaLoca.setLongitude(pikatchu.getPosition().longitude);
+                float f = location.distanceTo(pikaLoca);
+                if(f<50){
+                    Toast.makeText(this,"Entrée dans la zone de pikachu !! ",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this,"Distance to pikachu :  "+String.valueOf(f)+" m",Toast.LENGTH_SHORT).show();
                 }
-                latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title("Current Position");
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-                mCurrLocation = mMap.addMarker(markerOptions);
-                mMap.animateCamera(CameraUpdateFactory.zoomBy(1));
-                CameraUpdate zoom=CameraUpdateFactory.zoomTo(18);
-                CameraUpdate center=
-                        CameraUpdateFactory.newLatLng(latLng);
-                mMap.moveCamera(zoom);
-                mMap.animateCamera(center);
-                Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-                // Add a marker in Sydney and move the camera
-                  /* LatLng middle = new LatLng(0, 0);
-                 mMap.addMarker(new MarkerOptions().position(middle).title("Marker at 0,0"));
-                     mMap.moveCamera(CameraUpdateFactory.newLatLng(middle));*/
-                //If you only need one location, unregister the listener
-                //LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+
             }
 
             @Override
@@ -232,4 +274,5 @@ public class MainActivity extends AppCompatActivity
             public void onProviderDisabled(String provider) {
 
             }
-        }
+
+}
