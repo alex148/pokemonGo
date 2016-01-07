@@ -37,7 +37,18 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.pokemongo.dao.AttaqueDao;
+import com.pokemongo.dao.RaceDao;
+import com.pokemongo.model.Attaque;
+import com.pokemongo.model.MarkerPokemon;
+import com.pokemongo.model.Pokemon;
+import com.pokemongo.model.Race;
 import com.pokemongo.model.User;
+import com.pokemongo.model.Zone;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -56,16 +67,12 @@ public class MainActivity extends AppCompatActivity
     private static final LatLng PIKATCHU = new LatLng(45.783713, 4.868944);
     private Marker pikatchu;
 
-    LocationRequest mLocationRequest;
-    GoogleApiClient mGoogleApiClient;
-
-    LatLng latLng;
-    SupportMapFragment mFragment;
-    Marker mCurrLocation;
     private GoogleMap mMap;
     LocationManager locationManager;
-    String provider;
-    LatLng myPosition;
+
+    private RaceDao raceDao;
+    private AttaqueDao attaqueDao;
+    private List<MarkerPokemon> markers;
 
 
     @Override
@@ -75,13 +82,9 @@ public class MainActivity extends AppCompatActivity
                     .findFragmentById(R.id.map);
             mMap = fm.getMap();
             mMap.setMyLocationEnabled(true);
-            //mMap.setMyLocationEnabled(true);
             locationManager = (LocationManager) this
                     .getSystemService(LOCATION_SERVICE);
 
-            Criteria criteria = new Criteria();
-            provider = locationManager.getBestProvider(criteria, true);
-            //mMap.animateCamera(CameraUpdateFactory.zoomBy(13));
 
             // getting GPS status
             boolean isGPSEnabled = locationManager
@@ -97,13 +100,8 @@ public class MainActivity extends AppCompatActivity
                 boolean canGetLocation = true;
                 if (isNetworkEnabled) {
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
+                        // TODO: ask permission
+
                         return;
                     }
                     locationManager.requestLocationUpdates(
@@ -114,9 +112,14 @@ public class MainActivity extends AppCompatActivity
                 if (locationManager != null) {
                     Location location = locationManager
                             .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
+                    if(location == null){
+                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    }
+                    if(location == null){
+                        location = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                    }
                     if (location != null) {
-                        this.addPokemons(location);
+                        this.addPokemons();
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 14.0f));
                         onLocationChanged(location);
                     }
@@ -128,45 +131,86 @@ public class MainActivity extends AppCompatActivity
         }
         }
 
-    public void addPokemons(Location location){
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier("pikachu", "drawable", getPackageName()));
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 100, 100, false);
+    public void addPokemons(){
+        try{
+            List<Attaque> attaques = new ArrayList<Attaque>();
+            List<Race> races = this.raceDao.getAll();
+            Bitmap imageBitmap;
+            Bitmap resizedBitmap;
+            Random rand = new Random();
+            int randomNum = 0;
 
-        this.pikatchu = mMap.addMarker(new MarkerOptions()
-                .position(PIKATCHU)
-                .title("pikachu")
-                .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap)));
-    }
-@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+            attaques = this.attaqueDao.getAll();
+            int minAttaque = 0;
+            int maxAttaque = attaques.size()-1;
+            int attaque = 0;
+            for (Race r: races) {
+                if(r.getZones() != null && !r.getZones().isEmpty()){
+                    for (Zone zone: r.getZones()) {
+                        Pokemon p = new Pokemon();
+                        p.setId(-1);
+                        p.setPv(rand.nextInt(300 - 30 + 1) + 30);
+                        p.setDefense(rand.nextInt(200 - 30 + 1) + 30);
+                        p.setDefenseSpe(rand.nextInt(210 - 40 + 1) + 40);
+                        p.setAttaque(rand.nextInt(210 - 40 + 1) + 40);
+                        p.setAttaqueSpe(rand.nextInt(210 - 40 + 1) + 40);
+                        p.setExperience(0);
+                        p.setNiveau(rand.nextInt(30 - 1 + 1) + 1);
+                        p.setRace(r);
+                        p.setVitesse(rand.nextInt(210 - 40 + 1) + 40);
+                        // attaque = rand.nextInt(maxAttaque-minAttaque + 1) + minAttaque;   //todo
+                        // p.setAttaques(attaques.get(attaque));
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+                        imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(r.getNomRace().toLowerCase(), "drawable", getPackageName()));
+                        resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 100, 100, false);
+                        Marker m = mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(zone.getLongitude(), zone.getLatitude()))
+                                .title(r.getNomRace())
+                                .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap)));
+                        this.markers.add(new MarkerPokemon(m,p));
 
+                    }
+                }
+            }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
     }
+    @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            this.raceDao = new RaceDao(this);
+            this.attaqueDao = new AttaqueDao(this);
+            this.markers = new ArrayList<MarkerPokemon>();
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+        }
+
+        @Override
+        public void onBackPressed() {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                super.onBackPressed();
+            }
+        }
 
 
 
@@ -205,27 +249,7 @@ public class MainActivity extends AppCompatActivity
     }
             @Override
             public void onConnected(Bundle bundle) {
-                Toast.makeText(this,"onConnected",Toast.LENGTH_SHORT).show();
-                Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                        mGoogleApiClient);
-                if (mLastLocation != null) {
-                    //place marker at current position
-                    mMap.clear();
-                    latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(latLng);
-                    markerOptions.title("Current Position");
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-                    mCurrLocation = mMap.addMarker(markerOptions);
-                }
 
-                mLocationRequest = new LocationRequest();
-                mLocationRequest.setInterval(5000); //5 seconds
-                mLocationRequest.setFastestInterval(3000); //3 seconds
-                mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-                //mLocationRequest.setSmallestDisplacement(0.1F); //1/10 meter
-
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (com.google.android.gms.location.LocationListener) this);
             }
 
             @Override
@@ -240,8 +264,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onLocationChanged(Location location){
-              //  Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
-                //mMap.animateCamera(CameraUpdateFactory.zoomBy(13));
+
                 Location pikaLoca = new Location(location);
                 pikaLoca.setLatitude(pikatchu.getPosition().latitude);
                 pikaLoca.setLongitude(pikatchu.getPosition().longitude);

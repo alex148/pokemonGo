@@ -101,7 +101,8 @@ public class RaceDao extends Dao implements Crud<Race> {
             do{
                 Race r = new Race(cursor.getLong(0),cursor.getString(1),cursor.getString(2),
                         cursor.getFloat(3),cursor.getFloat(4),Type.valueOf(cursor.getString(5)),Type.valueOf(cursor.getString(6)),false);
-                zoneDao.getZonesByPokemon(r.getId());
+                r.setZones(zoneDao.getZonesByPokemon(r.getId()));
+
                 ListRace.add(r);
             }while (cursor.moveToNext());
             return ListRace;

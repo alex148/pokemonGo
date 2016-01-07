@@ -63,6 +63,15 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         db.execSQL(ZoneDao.TABLE_CREATE);
         db.execSQL(ZoneDao.INSERT_ZONE);
+        db.execSQL(ZoneDao.INSERT_ZONE_2);
+        db.execSQL(ZoneDao.INSERT_ZONE_3);
+        db.execSQL(ZoneDao.INSERT_ZONE_4);
+        db.execSQL(ZoneDao.INSERT_ZONE_5);
+        db.execSQL(ZoneDao.INSERT_ZONE_6);
+        db.execSQL(ZoneDao.INSERT_ZONE_7);
+        db.execSQL(ZoneDao.INSERT_ZONE_8);
+        db.execSQL(ZoneDao.INSERT_ZONE_9);
+        db.execSQL(ZoneDao.INSERT_ZONE_10);
     }
 
     @Override

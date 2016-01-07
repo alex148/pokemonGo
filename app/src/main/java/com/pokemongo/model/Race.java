@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public class Race implements Serializable {
         this.type1=type1;
         this.type2=type2;
         this.decouvert=decouvert;
+        zones = new ArrayList<Zone>();
     }
     public Race() {
 
