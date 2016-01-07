@@ -40,7 +40,7 @@ public class CombatActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         PokemonDao pokemonDao = new PokemonDao(this);
         pokemonDao.getById(0);
-        IA =(Pokemon)getIntent().getExtras().get("pokemon");
+        IA = (Pokemon)getIntent().getExtras().get("pokemon");
         sortir=false;
         User u=SingletonUser.getInstance().getUser();
         pokemon=u.getEquipe().getPokemons().get(0);

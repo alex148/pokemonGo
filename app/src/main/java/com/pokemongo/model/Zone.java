@@ -1,9 +1,11 @@
 package com.pokemongo.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Robin on 06/01/2016.
  */
-public class Zone {
+public class Zone implements Serializable {
     private long ID_Zone;
     private float longitude;
     private float latitude;

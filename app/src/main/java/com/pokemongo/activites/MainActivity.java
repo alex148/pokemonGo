@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity
     public void addPokemons() {
         try {
             List<Attaque> attaques = new ArrayList<Attaque>();
+            List<Attaque> attaquesPok = new ArrayList<Attaque>();
             List<Race> races = this.raceDao.getAll();
             Bitmap imageBitmap;
             Bitmap resizedBitmap;
@@ -138,6 +139,10 @@ public class MainActivity extends AppCompatActivity
             int randomNum = 0;
 
             attaques = this.attaqueDao.getAll();
+            attaquesPok.add(attaques.get(0));
+            attaquesPok.add(attaques.get(1));
+            attaquesPok.add(attaques.get(2));
+            attaquesPok.add(attaques.get(3));
             int minAttaque = 0;
             int maxAttaque = attaques.size() - 1;
             int attaque = 0;
@@ -146,17 +151,18 @@ public class MainActivity extends AppCompatActivity
                     for (Zone zone : r.getZones()) {
                         Pokemon p = new Pokemon();
                         p.setId(-1);
-                        p.setPv(rand.nextInt(300 - 30 + 1) + 30);
-                        p.setDefense(rand.nextInt(200 - 30 + 1) + 30);
-                        p.setDefenseSpe(rand.nextInt(210 - 40 + 1) + 40);
-                        p.setAttaque(rand.nextInt(210 - 40 + 1) + 40);
-                        p.setAttaqueSpe(rand.nextInt(210 - 40 + 1) + 40);
+                        p.setPv(rand.nextInt(50 - 10 + 1) + 10);
+                        p.setDefense(rand.nextInt(50 - 10 + 1) + 10);
+                        p.setDefenseSpe(rand.nextInt(50 - 10 + 1) + 10);
+                        p.setAttaque(rand.nextInt(50 - 10 + 1) + 10);
+                        p.setAttaqueSpe(rand.nextInt(50 - 10 + 1) + 10);
                         p.setExperience(0);
                         p.setNiveau(rand.nextInt(30 - 1 + 1) + 1);
                         p.setRace(r);
-                        p.setVitesse(rand.nextInt(210 - 40 + 1) + 40);
+                        p.setVitesse(rand.nextInt(50 - 10 + 1) + 10);
+
                         // attaque = rand.nextInt(maxAttaque-minAttaque + 1) + minAttaque;   //todo
-                        // p.setAttaques(attaques.get(attaque));
+                         p.setAttaques(attaquesPok);
 
                         imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(r.getNomRace().toLowerCase(), "drawable", getPackageName()));
                         resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 100, 100, false);
@@ -320,6 +326,11 @@ public class MainActivity extends AppCompatActivity
                 float distance = currentLocation.distanceTo(markerLocation);
                 if(distance<DISTANCE_DETECTION){
                     Toast.makeText(this, "FIGHT avec un "+markerPokemon.getPokemon().getRace().getNomRace()+"!! TADADADA !! ", Toast.LENGTH_SHORT).show();
+                    Intent newIntent = new Intent(MainActivity.this,CombatActivity.class);
+                    newIntent.putExtra("pokemon", markerPokemon.getPokemon());
+                    startActivity(newIntent);
+
+                    //finish();
                 }else{
                     Toast.makeText(this, "On dirait un "+markerPokemon.getPokemon().getRace().getNomRace()+" !", Toast.LENGTH_SHORT).show();
                 }

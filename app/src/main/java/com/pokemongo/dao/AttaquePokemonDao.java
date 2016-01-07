@@ -38,6 +38,10 @@ public class AttaquePokemonDao extends Dao implements Crud<AttaqueLiaison> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
     public static final String INSERT_POKEMON_ATTAQUE="INSERT INTO "+TABLE_NAME+" VALUES(0,0);";
+    public static final String INSERT_POKEMON_ATTAQUE_2="INSERT INTO "+TABLE_NAME+" VALUES(1,1);";
+    public static final String INSERT_POKEMON_ATTAQUE_3="INSERT INTO "+TABLE_NAME+" VALUES(2,1);";
+    public static final String INSERT_POKEMON_ATTAQUE_4="INSERT INTO "+TABLE_NAME+" VALUES(3,1);";
+    public static final String INSERT_POKEMON_ATTAQUE_5="INSERT INTO "+TABLE_NAME+" VALUES(4,1);";
     @Override
     public long insert(AttaqueLiaison object) {
         try {
