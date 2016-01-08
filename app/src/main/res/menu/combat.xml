@@ -4,16 +4,16 @@
     <item
         android:id="@+id/action_capture"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Pokeball"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_potion"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Potion"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_fuite"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="Fuite"
         app:showAsAction="never" />
 </menu>

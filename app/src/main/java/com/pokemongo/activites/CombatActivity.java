@@ -1,16 +1,21 @@
 package com.pokemongo.activites;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.alex.pokemongo.R;
 import com.pokemongo.controllers.CombatManager;
@@ -38,13 +43,13 @@ public class CombatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_combat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         PokemonDao pokemonDao = new PokemonDao(this);
         pokemonDao.getById(0);
-        IA = (Pokemon)getIntent().getExtras().get("pokemon");
-        sortir=false;
-        User u=SingletonUser.getInstance().getUser();
-        pokemon=u.getEquipe().getPokemons().get(0);
+        IA = (Pokemon) getIntent().getExtras().get("pokemon");
+        sortir = false;
+        User u = SingletonUser.getInstance().getUser();
+        pokemon = u.getEquipe().getPokemons().get(0);
 
         ImageView imageIA = (ImageView) findViewById(R.id.imageIA);
         String uriIA = "drawable/" + IA.getRace().getNomRace().toLowerCase();
@@ -134,12 +139,10 @@ public class CombatActivity extends AppCompatActivity {
     }
 
     private void tourSuivant(int choix) {
-        if(sortir){
+        if (sortir) {
             finish();
-        }
-        else if(pokemonKO()){
-        }
-        else if (tourJoueurFini && tourIAFini) {
+        } else if (pokemonKO()) {
+        } else if (tourJoueurFini && tourIAFini) {
             afficheMessage("Choisissez une attaque !");
             tourIAFini = false;
             tourJoueurFini = false;
@@ -224,17 +227,17 @@ public class CombatActivity extends AppCompatActivity {
     }
 
     private boolean pokemonKO() {
-        boolean KO=false;
+        boolean KO = false;
         ProgressBar viePokemon = (ProgressBar) findViewById(R.id.ViePokemon);
         ProgressBar vieIA = (ProgressBar) findViewById(R.id.VieIA);
         if (viePokemon.getProgress() <= 0) {
             afficheMessage("Votre pokemon est KO !");
-            sortir=true;
-            KO=true;
+            sortir = true;
+            KO = true;
         } else if (vieIA.getProgress() <= 0) {
             afficheMessage("Vous avez gagné le combat !");
-            sortir=true;
-            KO=true;
+            sortir = true;
+            KO = true;
         }
         return KO;
     }
@@ -244,6 +247,33 @@ public class CombatActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.combat, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_capture) {
+            Toast.makeText(getApplicationContext(), "Fonction à venir", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.action_potion) {
+            Toast.makeText(getApplicationContext(), "Fonction à venir", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        if (id == R.id.action_fuite) {
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+            // on ne fuit pas avec le bouton back
     }
 
 }
