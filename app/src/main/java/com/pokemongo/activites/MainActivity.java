@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -37,7 +38,6 @@ import com.pokemongo.model.Attaque;
 import com.pokemongo.model.MarkerPokemon;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
-import com.pokemongo.model.SingletonUser;
 import com.pokemongo.model.Zone;
 
 import java.util.ArrayList;
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity
     private AttaqueDao attaqueDao;
     private List<MarkerPokemon> markers;
 
+    private MediaPlayer mediaPlayer;
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try {
@@ -179,6 +180,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mediaPlayer = MediaPlayer.create(this, R.raw.map);
+        mediaPlayer.start();
         this.raceDao = new RaceDao(this);
         this.attaqueDao = new AttaqueDao(this);
         this.markers = new ArrayList<MarkerPokemon>();
@@ -220,21 +223,27 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_map) {
             // on y est déja
         } else if (id == R.id.nav_team) {
+
             Intent newIntent = new Intent(this, TeamActivity.class);
             startActivity(newIntent);
         } else if (id == R.id.nav_pokedex) {
+
             Intent newIntent = new Intent(this, PokedexActivity.class);
             startActivity(newIntent);
         } else if (id == R.id.nav_inventory) {
+
             Intent newIntent = new Intent(this, InventoryActivity.class);
             startActivity(newIntent);
         } else if (id == R.id.nav_pc) {
+
             Intent newIntent = new Intent(this, PCActivity.class);
             startActivity(newIntent);
         } else if (id == R.id.nav_settings) {
+
             Intent newIntent = new Intent(this, SettingsActivity.class);
             startActivity(newIntent);
         } else if (id == R.id.deconnexion) {
+            mediaPlayer.stop();
             Intent newIntent = new Intent(this, LoginActivity.class);
             startActivity(newIntent);
 
@@ -269,7 +278,7 @@ public class MainActivity extends AppCompatActivity
             targetLocation.setLongitude(m.getMarker().getPosition().longitude);
             float distance = targetLocation.distanceTo(location);
             if (distance < DISTANCE_DETECTION) {
-                Toast.makeText(this, "Entrée dans la zone de " + m.getPokemon().getRace().getNomRace() + " !! ", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Entrée dans la zone de " + m.getPokemon().getRace().getNomRace() + " !! ", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -318,12 +327,11 @@ public class MainActivity extends AppCompatActivity
                 markerLocation.setLongitude(markerPokemon.getMarker().getPosition().longitude);
                 float distance = currentLocation.distanceTo(markerLocation);
                 if(distance<DISTANCE_DETECTION){
-                    Toast.makeText(this, "FIGHT avec un "+markerPokemon.getPokemon().getRace().getNomRace()+"!! TADADADA !! ", Toast.LENGTH_SHORT).show();
+                    mediaPlayer.stop();
                     Intent newIntent = new Intent(MainActivity.this,CombatActivity.class);
                     newIntent.putExtra("pokemon", markerPokemon.getPokemon());
                     startActivity(newIntent);
 
-                    //finish();
                 }else{
                     Toast.makeText(this, "On dirait un "+markerPokemon.getPokemon().getRace().getNomRace()+" !", Toast.LENGTH_SHORT).show();
                 }
@@ -332,4 +340,5 @@ public class MainActivity extends AppCompatActivity
         }
         return true;
     }
+
 }

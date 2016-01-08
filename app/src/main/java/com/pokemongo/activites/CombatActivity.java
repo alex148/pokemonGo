@@ -37,11 +37,11 @@ public class CombatActivity extends AppCompatActivity {
     private boolean sortir;
     private Pokemon pokemon;
     private Pokemon IA;
-
+    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.red);
+        mediaPlayer = MediaPlayer.create(this, R.raw.red);
         mediaPlayer.start();
         setContentView(R.layout.activity_combat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -67,7 +67,7 @@ public class CombatActivity extends AppCompatActivity {
         nomPokemon.setText(pokemon.getRace().getNomRace()+" N."+pokemon.getNiveau());
 
         TextView pv_num_IA = (TextView) findViewById(R.id.pv_num_IA);
-        pv_num_IA.setText(IA.getPv()+"/"+IA.getPv());
+        pv_num_IA.setText(IA.getPv() + "/" + IA.getPv());
 
         TextView pv_num_pokemon = (TextView) findViewById(R.id.pv_num_pokemon);
         pv_num_pokemon.setText(pokemon.getPv()+"/"+pokemon.getPv());
@@ -151,6 +151,7 @@ public class CombatActivity extends AppCompatActivity {
 
     private void tourSuivant(int choix) {
         if (sortir) {
+            this.mediaPlayer.stop();
             finish();
         } else if (pokemonKO()) {
         } else if (tourJoueurFini && tourIAFini) {
@@ -178,7 +179,7 @@ public class CombatActivity extends AppCompatActivity {
         afficheMessageLanceAttaque(pokemon, pokemon.getAttaques().get(choix), IA, degat);
 
         TextView pv_num_IA = (TextView) findViewById(R.id.pv_num_IA);
-        pv_num_IA.setText(vieIA.getProgress()+"/"+IA.getPv());
+        pv_num_IA.setText(vieIA.getProgress() + "/" + IA.getPv());
 
         tourJoueurFini = true;
     }
@@ -283,6 +284,7 @@ public class CombatActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_fuite) {
+            mediaPlayer.stop();
             finish();
             return true;
         }

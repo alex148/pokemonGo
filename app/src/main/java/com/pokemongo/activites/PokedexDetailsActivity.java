@@ -17,6 +17,8 @@ import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
 import com.pokemongo.model.Type;
 
+import java.text.DecimalFormat;
+
 public class PokedexDetailsActivity extends AppCompatActivity {
 
     private Context context=this;
@@ -43,10 +45,13 @@ public class PokedexDetailsActivity extends AppCompatActivity {
         TextView type2 = (TextView) findViewById(R.id.type2Pokemon);
         type2.setText(pokemon.getType2().toString());
         }
+        DecimalFormat f = new DecimalFormat();
+        f.setMaximumFractionDigits(4);
+
         TextView poids = (TextView) findViewById(R.id.poids);
-        poids.setText("Poids :" + pokemon.getPoids() +"kg");
+        poids.setText("Poids :" + f.format(pokemon.getPoids()) +"kg");
         TextView taille = (TextView) findViewById(R.id.taille);
-        taille.setText("Taille : "+ pokemon.getTaille() +"m");
+        taille.setText("Taille : "+ f.format(pokemon.getTaille()) +"m");
         TextView description = (TextView) findViewById(R.id.descriptionPokemon);
         description.setText(pokemon.getDescription());
 

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +48,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     private UserDao userDao;
-
+    private MediaPlayer mediaPlayer;
     public User user;
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -76,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mediaPlayer = MediaPlayer.create(this, R.raw.login);
+        mediaPlayer.start();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -105,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View v) {
                 Intent newIntent = new Intent(LoginActivity.this,CreerCompteActivity.class);
+                mediaPlayer.stop();
                 startActivity(newIntent);
                 finish();
             }
@@ -354,6 +358,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //newIntent.putExtra("user",user);
                 SingletonUser.getInstance().ajoutUser(user);
                 }
+                mediaPlayer.stop();
                 startActivity(newIntent);
                 finish();
             } else {
