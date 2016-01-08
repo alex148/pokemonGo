@@ -20,12 +20,23 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp">
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:id="@+id/VieIA"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/VieIA"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/pv_num_IA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/VieIA"
+                    />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -77,12 +88,26 @@
 
             </RelativeLayout>
 
-            <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
-                android:id="@+id/ViePokemon"
-                android:layout_width="200dp"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_marginStart="10dp">
+
+                <ProgressBar
+                    android:id="@+id/ViePokemon"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/pv_num_pokemon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/ViePokemon"
+                    />
+
+
+            </RelativeLayout>
         </LinearLayout>
     </TableRow>
 
@@ -99,21 +124,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_weight="1"
-                android:text="-----"
-                />
+                android:text="-----" />
 
             <Button
                 android:id="@+id/Attaque2"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_weight="1"
-                android:text="-----"
-                />
+                android:text="-----" />
         </LinearLayout>
     </TableRow>
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,35 +148,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_weight="1"
-                android:text="-----"
-                />
+                android:text="-----" />
 
             <Button
                 android:id="@+id/Attaque4"
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_weight="1"
-                android:text="-----"
-                />
+                android:text="-----" />
         </LinearLayout>
     </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/infoCombat"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:textStyle="bold"
-            android:background="@drawable/combatinfobackground"
             android:layout_weight="5"
+            android:background="@drawable/combatinfobackground"
+            android:textStyle="bold"
+            android:padding="10dp"
             />
+
         <ImageButton
             android:id="@+id/suite"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:src="@android:drawable/arrow_down_float"
             android:layout_weight="1"
-            />
+            android:src="@android:drawable/arrow_down_float" />
     </TableRow>
 </TableLayout>

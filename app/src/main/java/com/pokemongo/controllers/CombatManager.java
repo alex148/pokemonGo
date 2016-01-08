@@ -10,9 +10,11 @@ import com.pokemongo.model.Pokemon;
 public class CombatManager {
     public static int getDegat(Pokemon attaquant, Pokemon defenseur, Attaque attaque){
         if(attaque.getCategorie()== CategorieAttaque.Physique) {
-            return (attaquant.getAttaque() - defenseur.getDefense()+attaque.getDegats());
+            boolean degatPositif=(attaquant.getAttaque() - defenseur.getDefense()+attaque.getDegats())>0;
+            return degatPositif?attaquant.getAttaque() - defenseur.getDefense()+attaque.getDegats():0;
         }else{
-            return (attaquant.getAttaqueSpe() - defenseur.getDefenseSpe()+attaque.getDegats());
+            boolean degatPositif=(attaquant.getAttaqueSpe() - defenseur.getDefenseSpe()+attaque.getDegats())>0;
+            return degatPositif?attaquant.getAttaqueSpe() - defenseur.getDefenseSpe()+attaque.getDegats():0;
         }
     }
 }

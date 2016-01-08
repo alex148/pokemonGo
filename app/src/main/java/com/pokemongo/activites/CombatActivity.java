@@ -61,7 +61,16 @@ public class CombatActivity extends AppCompatActivity {
         imageIA.setImageDrawable(IAimage);
 
         TextView nomIA = (TextView) findViewById(R.id.nomIA);
-        nomIA.setText(IA.getRace().getNomRace());
+        nomIA.setText(IA.getRace().getNomRace() + " N." + IA.getNiveau());
+
+        TextView nomPokemon = (TextView) findViewById(R.id.nomPokemon);
+        nomPokemon.setText(pokemon.getRace().getNomRace()+" N."+pokemon.getNiveau());
+
+        TextView pv_num_IA = (TextView) findViewById(R.id.pv_num_IA);
+        pv_num_IA.setText(IA.getPv()+"/"+IA.getPv());
+
+        TextView pv_num_pokemon = (TextView) findViewById(R.id.pv_num_pokemon);
+        pv_num_pokemon.setText(pokemon.getPv()+"/"+pokemon.getPv());
 
         ProgressBar vieIA = (ProgressBar) findViewById(R.id.VieIA);
         vieIA.setMax(IA.getPv());
@@ -73,8 +82,7 @@ public class CombatActivity extends AppCompatActivity {
         Drawable image = this.getResources().getDrawable(imagePokemonResource);
         imagePokemon.setImageDrawable(image);
 
-        TextView nomPokemon = (TextView) findViewById(R.id.nomPokemon);
-        nomPokemon.setText(pokemon.getRace().getNomRace());
+
 
         ProgressBar viePokemon = (ProgressBar) findViewById(R.id.ViePokemon);
         viePokemon.setMax(pokemon.getPv());
@@ -168,6 +176,10 @@ public class CombatActivity extends AppCompatActivity {
         ProgressBar vieIA = (ProgressBar) findViewById(R.id.VieIA);
         vieIA.setProgress(vieIA.getProgress() - degat);
         afficheMessageLanceAttaque(pokemon, pokemon.getAttaques().get(choix), IA, degat);
+
+        TextView pv_num_IA = (TextView) findViewById(R.id.pv_num_IA);
+        pv_num_IA.setText(vieIA.getProgress()+"/"+IA.getPv());
+
         tourJoueurFini = true;
     }
 
@@ -179,6 +191,10 @@ public class CombatActivity extends AppCompatActivity {
         ProgressBar viePokemon = (ProgressBar) findViewById(R.id.ViePokemon);
         viePokemon.setProgress(viePokemon.getProgress() - degat);
         afficheMessagePrendAttaque(IA, listAttaques.get(choix), pokemon, degat);
+
+        TextView pv_num_pokemon = (TextView) findViewById(R.id.pv_num_pokemon);
+        pv_num_pokemon.setText(viePokemon.getProgress() + "/" + pokemon.getPv());
+
         tourIAFini = true;
     }
 
