@@ -45,9 +45,9 @@ public class PokedexDao extends Dao implements Crud<PokedexLiaison> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
     public static final String INSERT_POKEDEX = "INSERT INTO "+TABLE_NAME+" VALUES (1,0,1);";
-    public static final String INSERT_POKEDEX_2 = "INSERT INTO "+TABLE_NAME+" VALUES (1,0,1);";
-    public static final String INSERT_POKEDEX_3 = "INSERT INTO "+TABLE_NAME+" VALUES (1,0,1);";
-    public static final String INSERT_POKEDEX_4 = "INSERT INTO "+TABLE_NAME+" VALUES (1,0,1);";
+    public static final String INSERT_POKEDEX_2 = "INSERT INTO "+TABLE_NAME+" VALUES (1,2,1);";
+    public static final String INSERT_POKEDEX_3 = "INSERT INTO "+TABLE_NAME+" VALUES (1,3,1);";
+    public static final String INSERT_POKEDEX_4 = "INSERT INTO "+TABLE_NAME+" VALUES (1,4,1);";
     @Override
     public long insert(PokedexLiaison object) {
         try {

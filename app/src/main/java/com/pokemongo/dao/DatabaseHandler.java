@@ -48,6 +48,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         db.execSQL(PokedexDao.TABLE_CREATE);
         db.execSQL(PokedexDao.INSERT_POKEDEX);
+        db.execSQL(PokedexDao.INSERT_POKEDEX_2);
+        db.execSQL(PokedexDao.INSERT_POKEDEX_3);
+        db.execSQL(PokedexDao.INSERT_POKEDEX_4);
+
 
         db.execSQL(StockageDao.TABLE_CREATE);
         db.execSQL(StockageDao.INSERT_STOCKAGE_TEST);
@@ -62,6 +66,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.execSQL(AttaqueDao.INSERT_ATTAQUE_4);
         db.execSQL(AttaqueDao.INSERT_ATTAQUE_5);
         db.execSQL(AttaqueDao.INSERT_ATTAQUE_6);
+        db.execSQL(AttaqueDao.INSERT_ATTAQUE_7);
+        db.execSQL(AttaqueDao.INSERT_ATTAQUE_8);
+        db.execSQL(AttaqueDao.INSERT_ATTAQUE_9);
+        db.execSQL(AttaqueDao.INSERT_ATTAQUE_10);
+        db.execSQL(AttaqueDao.INSERT_ATTAQUE_11);
+        db.execSQL(AttaqueDao.INSERT_ATTAQUE_12);
 
 
         db.execSQL(AttaquePokemonDao.TABLE_CREATE);

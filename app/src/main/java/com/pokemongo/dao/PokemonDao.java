@@ -52,10 +52,10 @@ public class PokemonDao extends Dao implements Crud<Pokemon> {
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 
-    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (0,50,20,20,20,20,50,1,0,0);";
-    public static final String INSERT_POKEMON_2 = "INSERT INTO "+TABLE_NAME+" VALUES (1,60,20,20,20,20,50,2,0,2);";
-    public static final String INSERT_POKEMON_3 = "INSERT INTO "+TABLE_NAME+" VALUES (2,40,28,32,10,50,40,1,0,3);";
-    public static final String INSERT_POKEMON_4 = "INSERT INTO "+TABLE_NAME+" VALUES (3,30,25,23,12,60,40,1,0,4);";
+    public static final String INSERT_POKEMON = "INSERT INTO "+TABLE_NAME+" VALUES (0,50,10,10,10,10,20,1,0,0);";
+    public static final String INSERT_POKEMON_2 = "INSERT INTO "+TABLE_NAME+" VALUES (1,60,10,10,10,10,50,2,0,2);";
+    public static final String INSERT_POKEMON_3 = "INSERT INTO "+TABLE_NAME+" VALUES (2,40,15,15,15,15,20,1,0,3);";
+    public static final String INSERT_POKEMON_4 = "INSERT INTO "+TABLE_NAME+" VALUES (3,30,10,10,5,30,20,1,0,4);";
 
     @Override
     public long insert(Pokemon object) {

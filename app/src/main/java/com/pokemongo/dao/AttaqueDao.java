@@ -44,11 +44,19 @@ public class AttaqueDao extends Dao implements Crud<Attaque> {
 
 
     public static final String INSERT_ATTAQUE = "INSERT INTO "+TABLE_NAME+" VALUES(0,'Charge',20,100,'Charge l adversaire de tout son poids','Physique','Normal');";
-    public static final String INSERT_ATTAQUE_2 = "INSERT INTO "+TABLE_NAME+" VALUES(1,'A la Queue',15,100,'Retient la cible de force, l obligeant à agir en dernier.','Physique','Tenebre');";
-    public static final String INSERT_ATTAQUE_3 = "INSERT INTO "+TABLE_NAME+" VALUES(2,'Abime',20,30,'Fait tomber l ennemi dans une crevasse et le met K.O.','Physique','Sol');";
-    public static final String INSERT_ATTAQUE_4 = "INSERT INTO "+TABLE_NAME+" VALUES(3,'Aboiement',15,95,'Le lanceur hurle sur l ennemi. Baisse l Attaque Spéciale de l ennemi.','Speciale','Tenebre');";
-    public static final String INSERT_ATTAQUE_5 = "INSERT INTO "+TABLE_NAME+" VALUES(4,'Abri',20,100,'Esquive l attaque, mais peut échouer si réutilisé.','Physique','Normal');";
-    public static final String INSERT_ATTAQUE_6 = "INSERT INTO "+TABLE_NAME+" VALUES(5,'Acidarmure',40,100,'Augmente la Défense du lanceur de deux niveaux.','Physique','Poison');";
+    public static final String INSERT_ATTAQUE_2 = "INSERT INTO "+TABLE_NAME+" VALUES(1,'A la Queue',0,100,'Retient la cible de force, l obligeant à agir en dernier.','Physique','Tenebre');";
+    public static final String INSERT_ATTAQUE_3 = "INSERT INTO "+TABLE_NAME+" VALUES(2,'Abime',0,30,'Fait tomber l ennemi dans une crevasse et le met K.O.','Physique','Sol');";
+    public static final String INSERT_ATTAQUE_4 = "INSERT INTO "+TABLE_NAME+" VALUES(3,'Aboiement',55,95,'Le lanceur hurle sur l ennemi. Baisse l Attaque Spéciale de l ennemi.','Speciale','Tenebre');";
+    public static final String INSERT_ATTAQUE_5 = "INSERT INTO "+TABLE_NAME+" VALUES(4,'Abri',20,0,'Esquive l attaque, mais peut échouer si réutilisé.','Physique','Normal');";
+    public static final String INSERT_ATTAQUE_6 = "INSERT INTO "+TABLE_NAME+" VALUES(5,'Acidarmure',0,100,'Augmente la Défense du lanceur de deux niveaux.','Physique','Poison');";
+
+    public static final String INSERT_ATTAQUE_7 = "INSERT INTO "+TABLE_NAME+" VALUES(6,'Aide d Eau',50,92,'Une masse d eau s abat sur l ennemi. En l utilisant avec Aire de Feu, l effet augmente et un arc-en-ciel apparaît.','Speciale','Eau');";
+    public static final String INSERT_ATTAQUE_8 = "INSERT INTO "+TABLE_NAME+" VALUES(7,'Aire d Herbe',50,80,'Une masse végétale s abat sur l ennemi. En l utilisant avec Aire d Eau, l effet augmente et un marécage apparaît.','Speciale','Plante');";
+    public static final String INSERT_ATTAQUE_9 = "INSERT INTO "+TABLE_NAME+" VALUES(8,'Aide de Feu',50,70,'Une masse de feu s abat sur l ennemi. En l utilisant avec Aire d Herbe, l effet augmente et une mer de feu apparaît.','Speciale','Feu');";
+
+    public static final String INSERT_ATTAQUE_10 = "INSERT INTO "+TABLE_NAME+" VALUES(9,'Appel Attak',90,50,'Haut taux de Coup Critique. (+1)','Physique','Insecte');";
+    public static final String INSERT_ATTAQUE_11 = "INSERT INTO "+TABLE_NAME+" VALUES(10,'Balle Graine',10,95,'Mitraille l ennemi avec 2 à 5 rafales à la suite.','Physique','Plante');";
+    public static final String INSERT_ATTAQUE_12 = "INSERT INTO "+TABLE_NAME+" VALUES(11,'Bulldoboule',65,90,'Le lanceur se roule en boule et écrase son ennemi. Peut aussi apeurer l ennemi.','Physique','Insecte');";
 
     public static final String DROP_TABLE = "DROP TABLE IF EXISTS "+TABLE_NAME+";";
 

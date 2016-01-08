@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity
     // The minimum time between updates in milliseconds
     private long MIN_TIME_BW_UPDATES = 1;
 
+    private int STAT_MULTIPLICATEUR = 5;
+    private int STAT_BASE = 10;
+    private int STAT_PV = 20;
+
     private static final LatLng PIKATCHU = new LatLng(45.783713, 4.868944);
     private Marker pikatchu;
 
@@ -136,33 +140,29 @@ public class MainActivity extends AppCompatActivity
             Bitmap imageBitmap;
             Bitmap resizedBitmap;
             Random rand = new Random();
-            int randomNum = 0;
-
+            attaques = attaqueDao.getAll();
+            int max = attaques.size()-1;
             attaques = this.attaqueDao.getAll();
-            attaquesPok.add(attaques.get(0));
-            attaquesPok.add(attaques.get(1));
-            attaquesPok.add(attaques.get(2));
-            attaquesPok.add(attaques.get(3));
-            int minAttaque = 0;
-            int maxAttaque = attaques.size() - 1;
-            int attaque = 0;
+            attaquesPok.add(attaques.get(rand.nextInt(max+1)));
+            attaquesPok.add(attaques.get(rand.nextInt(max+1)));
+            attaquesPok.add(attaques.get(rand.nextInt(max+1)));
+            attaquesPok.add(attaques.get(rand.nextInt(max+1)));
             for (Race r : races) {
                 if (r.getZones() != null && !r.getZones().isEmpty()) {
                     for (Zone zone : r.getZones()) {
                         Pokemon p = new Pokemon();
                         p.setId(-1);
-                        p.setPv(rand.nextInt(50 - 10 + 1) + 10);
-                        p.setDefense(rand.nextInt(50 - 10 + 1) + 10);
-                        p.setDefenseSpe(rand.nextInt(50 - 10 + 1) + 10);
-                        p.setAttaque(rand.nextInt(50 - 10 + 1) + 10);
-                        p.setAttaqueSpe(rand.nextInt(50 - 10 + 1) + 10);
+                        p.setNiveau(rand.nextInt(5) + 1);
+                        int niveau = p.getNiveau();
+                        p.setPv(STAT_PV + STAT_MULTIPLICATEUR * niveau);
+                        p.setDefense(STAT_BASE + STAT_MULTIPLICATEUR * niveau);
+                        p.setDefenseSpe(STAT_BASE + STAT_MULTIPLICATEUR * niveau);
+                        p.setAttaque(STAT_BASE + STAT_MULTIPLICATEUR * niveau);
+                        p.setAttaqueSpe(STAT_BASE + STAT_MULTIPLICATEUR * niveau);
                         p.setExperience(0);
-                        p.setNiveau(rand.nextInt(30 - 1 + 1) + 1);
                         p.setRace(r);
-                        p.setVitesse(rand.nextInt(50 - 10 + 1) + 10);
-
-                        // attaque = rand.nextInt(maxAttaque-minAttaque + 1) + minAttaque;   //todo
-                         p.setAttaques(attaquesPok);
+                        p.setVitesse(STAT_BASE + STAT_MULTIPLICATEUR * niveau);
+                        p.setAttaques(attaquesPok);
 
                         imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(r.getNomRace().toLowerCase(), "drawable", getPackageName()));
                         resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, 100, 100, false);
@@ -171,7 +171,6 @@ public class MainActivity extends AppCompatActivity
                                 .title(r.getNomRace())
                                 .icon(BitmapDescriptorFactory.fromBitmap(resizedBitmap)));
                         this.markers.add(new MarkerPokemon(m, p));
-
                     }
                 }
             }
