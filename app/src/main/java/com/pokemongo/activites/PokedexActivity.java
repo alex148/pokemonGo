@@ -41,7 +41,7 @@ public class PokedexActivity extends AppCompatActivity
         
         PokedexDao pokedexDao = new PokedexDao(this);
         Pokedex pokedex=pokedexDao.getPokedex(new User(1, "test", "test"));
-        
+
 
         listViewPokedex = ( ListView ) findViewById( R.id.pokedex_list);
         listViewPokedex.setAdapter(new PokedexAdapter(ctx, R.layout.item_pokedex, pokedex.getListRace()));

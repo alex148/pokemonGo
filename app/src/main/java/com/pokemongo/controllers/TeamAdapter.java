@@ -49,7 +49,7 @@ public class TeamAdapter extends ArrayAdapter<Pokemon> {
             pokeName.setText(pokemon.getRace().getNomRace());
 
             TextView pokeNiveau = (TextView) convertView.findViewById(R.id.niveauPokemon);
-            pokeNiveau.setText("N°" + String.valueOf(pokemon.getNiveau()));
+            pokeNiveau.setText("Niv " + String.valueOf(pokemon.getNiveau()));
 
             ImageView pokeImage = (ImageView) convertView.findViewById(R.id.imagePokemon);
             String uri = "drawable/" + pokemon.getRace().getNomRace().toLowerCase();
