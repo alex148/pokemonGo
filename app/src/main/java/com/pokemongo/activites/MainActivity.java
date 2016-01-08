@@ -38,7 +38,6 @@ import com.pokemongo.model.MarkerPokemon;
 import com.pokemongo.model.Pokemon;
 import com.pokemongo.model.Race;
 import com.pokemongo.model.SingletonUser;
-import com.pokemongo.model.User;
 import com.pokemongo.model.Zone;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     // The minimum distance to change Updates in meters
     private long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 1 meters
 
-    private int DISTANCE_DETECTION = 100;
+    private int DISTANCE_DETECTION = 150;
     // The minimum time between updates in milliseconds
     private long MIN_TIME_BW_UPDATES = 1;
 
@@ -65,15 +64,11 @@ public class MainActivity extends AppCompatActivity
     private int STAT_BASE = 10;
     private int STAT_PV = 20;
 
-    private static final LatLng PIKATCHU = new LatLng(45.783713, 4.868944);
-    private Marker pikatchu;
-
     private GoogleMap mMap;
     LocationManager locationManager;
     private RaceDao raceDao;
     private AttaqueDao attaqueDao;
     private List<MarkerPokemon> markers;
-    private User user;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -187,7 +182,6 @@ public class MainActivity extends AppCompatActivity
         this.raceDao = new RaceDao(this);
         this.attaqueDao = new AttaqueDao(this);
         this.markers = new ArrayList<MarkerPokemon>();
-        this.user = SingletonUser.getInstance().getUser();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

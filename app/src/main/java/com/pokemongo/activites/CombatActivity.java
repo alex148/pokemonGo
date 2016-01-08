@@ -2,6 +2,7 @@ package com.pokemongo.activites;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -40,6 +41,8 @@ public class CombatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.red);
+        mediaPlayer.start();
         setContentView(R.layout.activity_combat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
